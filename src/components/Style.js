@@ -1,4 +1,6 @@
-import styled, { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle, keyframes } from 'styled-components'
+import { ReactComponent as Wave } from '../img/wave.svg'
+
 
 export const colors = {
   darkGreen: '#246A73',
@@ -102,6 +104,25 @@ export const HomepageImg = {
   width: '40%',
   height: '40%',
 }
+
+export const HomePageContent=styled.div`
+display: grid;
+width:85%;
+height:100%;
+grid-template-areas: 
+"title1 title1 title1 title1 title1 title1 title1 title1",
+".      .      .      .      .      .      .      .     "
+"text1  text1  text1  text1  .      image1 image1 image1",
+"text1  text1  text1  .      .      image1 image1 image1",
+"text1  text1  .      .      .      image1 image1 image1",
+".      .      .      .      .      .      .      .     "
+"title2 title2 title2 title2 title2 title2 title2 title2",
+".      .      .      .      .      .      .      .     ",
+"text2  text2  text2  text2  .      image2 image2 image2",
+"text2  text2  text2  .      .      image2 image2 image2",
+"text2  text2  .      .      .      image2 image2 image2",
+;
+`
 
 export const StyledForm = styled(FitBox)``
 

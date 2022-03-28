@@ -10,6 +10,7 @@ import {
   Title,
   TextBox,
   HomepageImg,
+  HomePageContent
 } from './Style.js'
 import { ReactComponent as MainLogo } from '../img/main-logo.svg'
 import { ReactComponent as Wave } from '../img/wave.svg'
@@ -17,7 +18,6 @@ import { ReactComponent as HomepageImg1 } from '../img/homepage-img.svg'
 
 export default function Homepage(props) {
   return (
-    <>
       <FitBox flexDirection='row'>
         {/* Navigation Menu */}
         <NavColumn width='15%'>
@@ -41,12 +41,11 @@ export default function Homepage(props) {
           </Link>
         </NavColumn>
         {/* Main body */}
-        <MainBody width='85%'>
-          <Wave style={BackgroundStyle}></Wave>
-          <Title>About Us</Title>
+        <HomePageContent width='85%'>
+          <Wave style={BackgroundStyle} ></Wave>
+          <Title style={{gridArea:"title1"}}>About Us</Title>
           {/* tu jest problem */}
-          <FitBox flexDirection='row'>
-            <TextBox width='50%'>
+            <TextBox style={{gridArea:"text1"}}>
               Gummies sweet chocolate cookie tart bonbon jujubes icing tart.
               Marshmallow marshmallow sweet fruitcake topping bear claw halvah
               powder bonbon.Gummies sweet chocolate cookie tart bonbon jujubes
@@ -55,11 +54,9 @@ export default function Homepage(props) {
               bonbon jujubes icing tart. Marshmallow marshmallow sweet fruitcake
               topping bear claw halvah powder bonbon.
             </TextBox>
-            <HomepageImg1 width='50%' style={HomepageImg}></HomepageImg1>
-          </FitBox>
-          <Title>About App</Title>
-          <FitBox flexDirection='row'>
-            <TextBox width='50%'>
+            <HomepageImg1 style={{gridArea:"image1"}}></HomepageImg1>
+          <Title style={{gridArea:"title2"}}>About App</Title>
+            <TextBox style={{gridArea:"text2"}}>
               Gummies sweet chocolate cookie tart bonbon jujubes icing tart.
               Marshmallow marshmallow sweet fruitcake topping bear claw halvah
               powder bonbon.Gummies sweet chocolate cookie tart bonbon jujubes
@@ -68,10 +65,8 @@ export default function Homepage(props) {
               bonbon jujubes icing tart. Marshmallow marshmallow sweet fruitcake
               topping bear claw halvah powder bonbon.
             </TextBox>
-            <HomepageImg1 width='50%' style={HomepageImg}></HomepageImg1>
-          </FitBox>
-        </MainBody>
+            <HomepageImg1 style={{gridArea:"image2"}}></HomepageImg1>
+        </HomePageContent>
       </FitBox>
-    </>
   )
 }
