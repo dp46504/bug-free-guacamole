@@ -6,6 +6,7 @@ import routes from './routes';
 import jwt from 'jsonwebtoken';
 import { ServerToClientEvents, ClientToServerEvents, InterServerEvents, SocketData, TokenData } from './types';
 import dotenv from "dotenv";
+import cors from 'cors';
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server<ServerToClientEvents, ClientToServerEvents, InterServerEvents, SocketData>(server);
 
+app.use(cors())
 app.use(express.json());
 app.use('/', routes);
 app.get('/client', (req: Request, res: Response) => res.sendFile("public/index.html", { root: "." }));
