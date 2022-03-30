@@ -1,6 +1,5 @@
 import { Request, Response } from "express"
 import { prisma } from "../../services/prismaClient";
-import { Prisma } from "@prisma/client"
 import jsonwebtoken from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
 import dotenv from "dotenv";
@@ -25,8 +24,12 @@ export default async (req: Request, res: Response) => {
                 email: email,
             },
             select: {
+                email: true,
+                firstname: true,
+                lastname: true,
+                admin: true,
                 hash: true,
-                uuid: true
+                uuid: true,
             }
         })
 
@@ -62,7 +65,13 @@ export default async (req: Request, res: Response) => {
     const accessToken = await jsonwebtoken.sign(payload, secret);
 
     const data = {
-        "accessToken": accessToken
+        accessToken,
+        info: {
+            firstname: user.firstname,
+            lastname: user.lastname,
+            email: user.email,
+            role: user.admin === true ? 'admin' : 'user'
+        }
     }
     
     res.send(data);
