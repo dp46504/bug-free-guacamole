@@ -1,72 +1,86 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from "react";
 import {
   FitBox,
   NavColumn,
-  MainBody,
-  NavItem,
   StyledLink,
-  BackgroundStyle,
+  WaveStyle,
   Title,
   TextBox,
-  HomepageImg,
-  HomePageContent
-} from './Style.js'
-import { ReactComponent as MainLogo } from '../img/main-logo.svg'
-import { ReactComponent as Wave } from '../img/wave.svg'
-import { ReactComponent as HomepageImg1 } from '../img/homepage-img.svg'
+  HomePageContent,
+} from "./Style.js";
+import { ReactComponent as MainLogo } from "../img/main-logo.svg";
+import { ReactComponent as Wave } from "../img/wave.svg";
+import { ReactComponent as HomepageImg1 } from "../img/homepage-img.svg";
+import { ReactComponent as HomepageImg2 } from "../img/homepage-img-2.svg";
 
 export default function Homepage(props) {
+  let [display, setDisplay] = useState(window.innerWidth <= 900 ? false : true);
+
+  useEffect(() => {
+    const hook = () => {
+      setDisplay(window.innerWidth <= 900 ? false : true);
+    };
+
+    window.addEventListener("resize", hook);
+
+    return () => {
+      window.removeEventListener(hook);
+    };
+  }, []);
+
   return (
-      <FitBox flexDirection='row'>
-        {/* Navigation Menu */}
-        <NavColumn width='15%'>
-          <FitBox height='20%' justifyContent='center'>
-            <MainLogo></MainLogo>
-            <Link to='/' style={StyledLink}>
-              Clock Man
-            </Link>
-          </FitBox>
-          <Link to='/' style={StyledLink}>
-            Home
-          </Link>
-          <Link to='/login' style={StyledLink}>
-            Log in
-          </Link>
-          <Link to='/register' style={StyledLink}>
-            Register
-          </Link>
-          <Link to='/contact' style={StyledLink}>
-            Contact
-          </Link>
-        </NavColumn>
-        {/* Main body */}
-        <HomePageContent width='85%'>
-          <Wave style={BackgroundStyle} ></Wave>
-          <Title style={{gridArea:"title1"}}>About Us</Title>
-          {/* tu jest problem */}
-            <TextBox style={{gridArea:"text1"}}>
-              Gummies sweet chocolate cookie tart bonbon jujubes icing tart.
-              Marshmallow marshmallow sweet fruitcake topping bear claw halvah
-              powder bonbon.Gummies sweet chocolate cookie tart bonbon jujubes
-              icing tart. Marshmallow marshmallow sweet fruitcake topping bear
-              claw halvah powder bonbon.Gummies sweet chocolate cookie tart
-              bonbon jujubes icing tart. Marshmallow marshmallow sweet fruitcake
-              topping bear claw halvah powder bonbon.
-            </TextBox>
-            <HomepageImg1 style={{gridArea:"image1"}}></HomepageImg1>
-          <Title style={{gridArea:"title2"}}>About App</Title>
-            <TextBox style={{gridArea:"text2"}}>
-              Gummies sweet chocolate cookie tart bonbon jujubes icing tart.
-              Marshmallow marshmallow sweet fruitcake topping bear claw halvah
-              powder bonbon.Gummies sweet chocolate cookie tart bonbon jujubes
-              icing tart. Marshmallow marshmallow sweet fruitcake topping bear
-              claw halvah powder bonbon.Gummies sweet chocolate cookie tart
-              bonbon jujubes icing tart. Marshmallow marshmallow sweet fruitcake
-              topping bear claw halvah powder bonbon.
-            </TextBox>
-            <HomepageImg1 style={{gridArea:"image2"}}></HomepageImg1>
-        </HomePageContent>
-      </FitBox>
-  )
+    <FitBox flexDirection="row">
+      {/* Navigation Menu */}
+      <NavColumn width="15%">
+        <FitBox height="20%" justifyContent="center">
+          <MainLogo></MainLogo>
+          <StyledLink to="/">Clock Man</StyledLink>
+        </FitBox>
+        <StyledLink to="/">Home</StyledLink>
+        <StyledLink to="/login">Log in</StyledLink>
+        <StyledLink to="/register">Register</StyledLink>
+        <StyledLink to="/contact">Contact</StyledLink>
+      </NavColumn>
+      {/* Main body */}
+
+      <HomePageContent width="85%">
+        <Title style={{ gridArea: "title1" }}>About Us</Title>
+        <TextBox style={{ gridArea: "text1" }}>
+          Gummies sweet chocolate cookie tart bonbon jujubes icing tart.
+          Marshmallow marshmallow sweet fruitcake topping bear claw halvah
+          powder bonbon.Gummies sweet chocolate cookie tart bonbon jujubes icing
+          tart. Marshmallow marshmallow sweet fruitcake topping bear claw halvah
+          powder bonbon.Gummies sweet chocolate cookie tart bonbon jujubes icing
+          tart. Marshmallow marshmallow sweet fruitcake topping bear claw halvah
+          powder bonbon.
+        </TextBox>
+        {display && (
+          <HomepageImg2
+            width="300"
+            preserveAspectRatio="xMidYMid meet"
+            style={{ padding: "2rem", gridArea: "image1" }}
+          ></HomepageImg2>
+        )}
+
+        <Title style={{ gridArea: "title2" }}>About App</Title>
+        <TextBox style={{ gridArea: "text2" }}>
+          Gummies sweet chocolate cookie tart bonbon jujubes icing tart.
+          Marshmallow marshmallow sweet fruitcake topping bear claw halvah
+          powder bonbon.Gummies sweet chocolate cookie tart bonbon jujubes icing
+          tart. Marshmallow marshmallow sweet fruitcake topping bear claw halvah
+          powder bonbon.Gummies sweet chocolate cookie tart bonbon jujubes icing
+          tart. Marshmallow marshmallow sweet fruitcake topping bear claw halvah
+          powder bonbon.
+        </TextBox>
+        {display && (
+          <HomepageImg1
+            width="300"
+            preserveAspectRatio="xMidYMid meet"
+            style={{ padding: "2rem", gridArea: "image2" }}
+          ></HomepageImg1>
+        )}
+      </HomePageContent>
+      <Wave style={WaveStyle}></Wave>
+    </FitBox>
+  );
 }
