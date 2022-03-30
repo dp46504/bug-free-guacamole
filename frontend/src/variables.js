@@ -1,4 +1,4 @@
-const main = 'http://localhost:5000'
+const main = 'http://localhost:5000/api'
 
 const endpoints = {
   login: `${main}/login`,

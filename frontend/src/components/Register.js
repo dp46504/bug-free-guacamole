@@ -33,7 +33,7 @@ export default function Register(props) {
         email: data.email,
         firstname: data.firstname,
         lastname: data.lastname,
-        password: data.password,
+        password: data.password1,
       }),
     }
 
