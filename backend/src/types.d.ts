@@ -1,3 +1,5 @@
+import { JwtPayload } from "jsonwebtoken";
+
 export interface ServerToClientEvents {
     // noArg: () => void;
     // basicEmit: (a: number, b: string, c: Buffer) => void;
@@ -18,7 +20,6 @@ export interface SocketData {
     }
 }
 
-export interface TokenData {
+export interface TokenPayload implements JwtPayload {
     uuid: string;
-    iat: number;
 }

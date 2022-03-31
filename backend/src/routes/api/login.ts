@@ -3,7 +3,7 @@ import { prisma } from "../../services/prismaClient";
 import jsonwebtoken from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
 import dotenv from "dotenv";
-import { TokenData } from "../../types";
+import { TokenPayload } from "../../types";
 
 dotenv.config();
 
@@ -51,7 +51,7 @@ export default async (req: Request, res: Response) => {
         return;
     }
 
-    const payload = {
+    const payload: TokenPayload = {
         uuid: user.uuid
     }
 
