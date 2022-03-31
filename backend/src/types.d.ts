@@ -22,4 +22,5 @@ export interface SocketData {
 
 export interface TokenPayload implements JwtPayload {
     uuid: string;
+    role: string;
 }

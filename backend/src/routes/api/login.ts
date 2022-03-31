@@ -52,7 +52,8 @@ export default async (req: Request, res: Response) => {
     }
 
     const payload: TokenPayload = {
-        uuid: user.uuid
+        uuid: user.uuid,
+        role: user.admin === true ? 'admin' : 'user'
     }
 
     const secret = process.env.SECRET_ACCESS_TOKEN;
