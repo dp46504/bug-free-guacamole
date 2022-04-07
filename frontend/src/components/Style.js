@@ -277,11 +277,13 @@ export const StyledInput = styled.input`
 
   &:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 10rem ${colors.darkGreen} inset; /* Change the color to your own background color */
+    box-shadow: 0 0 0 10rem ${colors.darkGreen} inset; /* Change the color to your own background color */
     -webkit-text-fill-color: ${colors.dirtyWhite};
   }
 
   &:-webkit-autofill:focus {
     -webkit-box-shadow: 0 0 0 10rem ${colors.darkGreen} inset; /*your box-shadow*/
+    box-shadow: 0 0 0 10rem ${colors.darkGreen} inset; /*your box-shadow*/
     -webkit-text-fill-color: ${colors.dirtyWhite};
   }
 
@@ -344,11 +346,13 @@ export const SearchInput = styled.input`
 
   &:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 10rem ${colors.maron} inset; /* Change the color to your own background color */
+    box-shadow: 0 0 0 10rem ${colors.maron} inset; /* Change the color to your own background color */
     -webkit-text-fill-color: ${colors.dirtyWhite};
   }
 
   &:-webkit-autofill:focus {
     -webkit-box-shadow: 0 0 0 10rem ${colors.maron} inset; /*your box-shadow*/
+    box-shadow: 0 0 0 10rem ${colors.maron} inset; /*your box-shadow*/
     -webkit-text-fill-color: ${colors.dirtyWhite};
   }
 
