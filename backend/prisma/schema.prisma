@@ -8,14 +8,34 @@ datasource db {
 }
 
 model User {
-  id         Int       @id @default(autoincrement())
-  uuid       String    @unique
-  email      String    @unique
-  firstname  String
-  lastname   String
-  hash       String
-  lastLogin  DateTime?
-  admin      Boolean
-  breakTime  Int
-  breakEvery Int
+  id           Int            @id @default(autoincrement())
+  uuid         String         @unique
+  email        String         @unique
+  firstname    String
+  lastname     String
+  hash         String
+  lastLogin    DateTime?
+  admin        Boolean
+  breakTime    Int
+  breakEvery   Int
+  workRegister WorkRegister[]
+}
+
+model WorkRegister {
+  id            Int             @id @default(autoincrement())
+  user          User            @relation(fields: [userId], references: [id])
+  userId        Int
+  definedTime   DateTime
+  start         DateTime?
+  end           DateTime?
+  breakRegister BreakRegister[]
+}
+
+model BreakRegister {
+  id          Int          @id @default(autoincrement())
+  workEntry   WorkRegister @relation(fields: [workEntryId], references: [id])
+  workEntryId Int
+  definedTime DateTime
+  start       DateTime
+  end         DateTime
 }

@@ -67,6 +67,7 @@ export default async (req: Request, res: Response) => {
 
     const data = {
         accessToken,
+        refreshToken: "",
         info: {
             firstname: user.firstname,
             lastname: user.lastname,

@@ -1,3 +1,4 @@
+import { Request } from "express";
 import { JwtPayload } from "jsonwebtoken";
 
 export interface ServerToClientEvents {
@@ -7,7 +8,7 @@ export interface ServerToClientEvents {
 }
   
 export interface ClientToServerEvents {
-    
+    hello: string;
 }
 
 export interface InterServerEvents {
