@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken';
 import { ServerToClientEvents, ClientToServerEvents, InterServerEvents, SocketData } from './types';
 import dotenv from "dotenv";
 import cors from 'cors';
-import auth from './services/auth';
+import auth from './services/socketAuth';
 
 const port = 5000;
 const app = express();

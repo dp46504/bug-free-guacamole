@@ -31,7 +31,8 @@ export default async (socket: Socket, next: (err?: Error) => void) => {
         }
         
         socket.data.user = {
-            uuid: payload.uuid
+            uuid: payload.uuid,
+            role: payload.role
         };
         next();
     }else{
