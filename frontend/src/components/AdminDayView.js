@@ -1,7 +1,18 @@
 import React from 'react'
-import { FitBox, NavColumn, StyledLink, CirclesStyle } from './Style.js'
+import {
+  FitBox,
+  NavColumn,
+  StyledLink,
+  CirclesStyle,
+  Title,
+  DashboardBodyFlex,
+  colors,
+  ListItem,
+  BackArrowStyle,
+} from './Style.js'
 import { ReactComponent as MainLogo } from '../img/main-logo.svg'
 import { ReactComponent as Circles } from '../img/circle.svg'
+import { ReactComponent as BackArrow } from '../img/back-arrow.svg'
 
 export default function AdminDayView(props) {
   return (
@@ -17,6 +28,22 @@ export default function AdminDayView(props) {
         <StyledLink to='/'>Logout</StyledLink>
       </NavColumn>
       {/* Main body */}
+      <FitBox>
+        <Title height='12%'>Administrator</Title>
+        <DashboardBodyFlex
+          backgroundColor={`${colors.darkGreen}AA`}
+          justifyContent='flex-start'>
+          <Title color={colors.dirtyWhite} fontWeight='500' margin='2rem 0'>
+            DAY FORMAT
+          </Title>
+          <BackArrow style={BackArrowStyle}></BackArrow>
+          <ListItem>
+            <div style={{ gridArea: 'text1' }}>John Doe</div>
+            <div style={{ gridArea: 'text2' }}>In Progress</div>
+            <div style={{ gridArea: 'text3' }}>21:37:00</div>
+          </ListItem>
+        </DashboardBodyFlex>
+      </FitBox>
       <Circles style={CirclesStyle}></Circles>
     </FitBox>
   )

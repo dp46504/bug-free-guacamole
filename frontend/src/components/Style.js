@@ -91,6 +91,7 @@ export const DashboardBodyFlex = styled(FitBox)`
   background-color: ${(props) => {
     return props.backgroundColor ? props.backgroundColor : ''
   }};
+  position: relative;
 `
 
 export const WaveStyle = {
@@ -147,6 +148,25 @@ export const CirclesStyle = {
   zIndex: -1,
 }
 
+export const BackArrowStyle = {
+  position: 'absolute',
+  top: '2rem',
+  left: '2rem',
+  cursor: 'pointer',
+}
+
+export const StartStyle = {
+  position: 'absolute',
+  left: '30%',
+  top: '23%',
+}
+
+export const StopStyle = {
+  position: 'absolute',
+  left: '26%',
+  top: '25%',
+}
+
 export const Title = styled(FitBox)`
   font-size: ${(props) => {
     return props.fontSize ? props.fontSize : '2.5rem'
@@ -154,9 +174,14 @@ export const Title = styled(FitBox)`
   height: ${(props) => {
     return props.height ? props.height : 'fit-content'
   }};
-  font-weight: bold;
+  font-weight: ${(props) => {
+    return props.fontWeight ? props.fontWeight : 'bold'
+  }};
   color: ${(props) => {
     return props.color ? props.color : colors.darkGreen
+  }};
+  margin: ${(props) => {
+    return props.margin ? props.margin : '0'
   }};
 `
 
@@ -296,7 +321,7 @@ export const SearchInput = styled.input`
   width: 75%;
   min-width: 300px;
   height: fit-content;
-  margin: 0.15rem 0;
+  margin: 1rem 0;
 
   background-color: ${colors.maron};
   border: none;
@@ -313,21 +338,100 @@ export const SearchInput = styled.input`
   transition: all 200ms ease-in-out;
 
   &::placeholder {
-    background-color: ${colors.darkGreen};
-    color: ${colors.dirtyWhite};
+    background-color: ${colors.maron};
+    color: ${`${colors.dirtyWhite}44`};
   }
 
   &:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 10rem ${colors.darkGreen} inset; /* Change the color to your own background color */
+    -webkit-box-shadow: 0 0 0 10rem ${colors.maron} inset; /* Change the color to your own background color */
     -webkit-text-fill-color: ${colors.dirtyWhite};
   }
 
   &:-webkit-autofill:focus {
-    -webkit-box-shadow: 0 0 0 10rem ${colors.darkGreen} inset; /*your box-shadow*/
+    -webkit-box-shadow: 0 0 0 10rem ${colors.maron} inset; /*your box-shadow*/
     -webkit-text-fill-color: ${colors.dirtyWhite};
   }
 
   &:focus {
     transform: scale(1.05);
   }
+`
+
+export const ListItem = styled.div`
+  width: 75%;
+  min-width: 300px;
+  height: fit-content;
+  margin: 0.5rem 0;
+
+  background-color: ${`${colors.darkGreen}BB`};
+  border: none;
+  outline: none;
+
+  text-align: center;
+  color: ${colors.dirtyWhite};
+  font-size: 2rem;
+  font-weight: 300;
+
+  padding: 1rem;
+  box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.1);
+
+  display: grid;
+  grid-template-areas: 'text1 . text2 . text3';
+`
+
+export const TimerCircle = styled.div`
+  width: 40%;
+  min-width: 40%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: ${colors.dirtyWhite};
+
+  color: ${colors.darkGreen};
+  font-size: 3rem;
+  font-weight: bold;
+
+  display: grid;
+  place-items: center;
+`
+
+export const TimerButton = styled.button`
+  width: 5rem;
+  min-width: 5rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: ${colors.maron};
+  border: none;
+  cursor: pointer;
+  position: relative;
+
+  transition: all 200ms ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+`
+
+export const BreakBox = styled.div`
+  width: 60%;
+  height: 15%;
+  display: grid;
+  grid-template-areas:
+    'breakIn . breakInTime breakInTime'
+    'duration . durationTime durationTime';
+  background-color: ${colors.dirtyWhite};
+  place-items: center;
+`
+
+export const BreakBoxInput = styled.input`
+  line-height: 2.5rem;
+  width: 90%;
+  background-color: ${colors.dirtyWhite};
+
+  text-align: center;
+  color: ${colors.darkGreen};
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid ${`${colors.darkGreen}AA`};
 `
