@@ -441,6 +441,7 @@ export const MonthGrid = styled.div`
   width: calc(7 * 6rem);
   min-width: calc(7 * 6rem);
   max-width: calc(7 * 6rem);
+  position: relative;
 
   flex-direction: row;
   flex-wrap: wrap;

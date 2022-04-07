@@ -10,8 +10,10 @@ import {
   MonthGrid,
   Title,
   colors,
+  BackArrowStyle,
 } from './Style.js'
 import { ReactComponent as MainLogo } from '../img/main-logo.svg'
+import { ReactComponent as BackArrow } from '../img/back-arrow.svg'
 import { ReactComponent as Circles } from '../img/circle.svg'
 
 export default function UserDashboard(props) {
@@ -90,7 +92,9 @@ export default function UserDashboard(props) {
           style={{
             backgroundColor: `${colors.darkGreen}AA`,
             overflowX: 'hidden',
+            position: 'relative',
           }}>
+          <BackArrow style={BackArrowStyle}></BackArrow>
           <Title color='white'>{monthNames[new Date().getMonth()]}</Title>
 
           <MonthGrid>
@@ -131,7 +135,7 @@ export default function UserDashboard(props) {
           </MonthGrid>
         </FitBox>
       </FitBox>
-      {/* <Circles style={CirclesStyle}></Circles> */}
+      <Circles style={CirclesStyle}></Circles>
     </FitBox>
   )
 }
