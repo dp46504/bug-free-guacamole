@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle, keyframes } from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 import { Link } from 'react-router-dom'
 
 export const colors = {
@@ -84,6 +84,14 @@ export const MainBody = styled(FitBox)`
     return props.overflowY ? props.overflowY : 'scroll'
   }};
 `
+export const DashboardBodyFlex = styled(FitBox)`
+  overflow-y: ${(props) => {
+    return props.overflowY ? props.overflowY : 'scroll'
+  }};
+  background-color: ${(props) => {
+    return props.backgroundColor ? props.backgroundColor : ''
+  }};
+`
 
 export const WaveStyle = {
   position: 'fixed',
@@ -131,6 +139,11 @@ export const BackgroundStyle = {
   position: 'fixed',
   bottom: 0,
   left: '15%',
+  zIndex: -1,
+}
+
+export const CirclesStyle = {
+  position: 'fixed',
   zIndex: -1,
 }
 
@@ -275,6 +288,46 @@ export const SubmitButton = styled.button`
   transition: all 200ms ease-in-out;
 
   &:hover {
+    transform: scale(1.05);
+  }
+`
+
+export const SearchInput = styled.input`
+  width: 75%;
+  min-width: 300px;
+  height: fit-content;
+  margin: 0.15rem 0;
+
+  background-color: ${colors.maron};
+  border: none;
+  outline: none;
+
+  text-align: center;
+  color: ${colors.dirtyWhite};
+  font-size: 2rem;
+  font-weight: 100;
+
+  padding: 1rem;
+  box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.1);
+
+  transition: all 200ms ease-in-out;
+
+  &::placeholder {
+    background-color: ${colors.darkGreen};
+    color: ${colors.dirtyWhite};
+  }
+
+  &:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 10rem ${colors.darkGreen} inset; /* Change the color to your own background color */
+    -webkit-text-fill-color: ${colors.dirtyWhite};
+  }
+
+  &:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 10rem ${colors.darkGreen} inset; /*your box-shadow*/
+    -webkit-text-fill-color: ${colors.dirtyWhite};
+  }
+
+  &:focus {
     transform: scale(1.05);
   }
 `
