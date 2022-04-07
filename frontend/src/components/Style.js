@@ -435,3 +435,52 @@ export const BreakBoxInput = styled.input`
   outline: none;
   border-bottom: 1px solid ${`${colors.darkGreen}AA`};
 `
+
+export const MonthGrid = styled.div`
+  display: flex;
+  width: calc(7 * 6rem);
+  min-width: calc(7 * 6rem);
+  max-width: calc(7 * 6rem);
+
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+`
+
+export const MonthBubble = styled.div`
+  width: 5rem;
+  flex: 0 0 5rem;
+  margin: 0.5rem 0.5rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: ${(props) => {
+    return props.backgroundColor ? props.backgroundColor : colors.dirtyWhite
+  }};
+  color: ${(props) => {
+    return props.color ? props.color : colors.darkGreen
+  }};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 2rem;
+  transition: all 200ms;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0rem 0rem 2rem ${colors.darkGreen};
+  }
+`
+
+export const DayNameLabel = styled.div`
+  width: 5rem;
+  flex: 0 0 5rem;
+  margin: 0.5rem 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 2rem;
+  color: ${colors.dirtyWhite};
+`
