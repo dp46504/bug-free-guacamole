@@ -22,10 +22,25 @@ steps:
     npm install
     npm run build
   workingDirectory: frontend
-  displayName: 'npm install and build'
+  displayName: 'npm install and build frontend'
 
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: frontend/build
-    ArtifactName: 'FrontEnd'
+    ArtifactName: 'Frontend'
     publishLocation: 'Container'
+
+
+- script: |
+    npm install
+    npm run build
+  workingDirectory: backend
+  displayName: 'npm install and build backend'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: backend/dist
+    ArtifactName: 'Backend'
+    publishLocation: 'Container'
+
+
