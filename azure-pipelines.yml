@@ -6,6 +6,9 @@
 trigger:
 - master
 
+variables:
+- group: Directories 
+
 pool:
   vmImage: ubuntu-latest
 
@@ -26,6 +29,6 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    PathtoPublish: '$(Directories.frontendBuild)'
     ArtifactName: 'FrontEnd'
     publishLocation: 'Container'
