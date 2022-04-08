@@ -21,6 +21,9 @@ steps:
 - task: CmdLine@2
   inputs:
     script: 'cd frontend'
+- task: CmdLine@2
+  inputs:
+    script: 'ls -al'
 
 - script: |
     npm install
