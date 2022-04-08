@@ -18,16 +18,10 @@ steps:
     versionSpec: '14.x'
   displayName: 'Install Node.js'
 
-- task: CmdLine@2
-  inputs:
-    script: 'cd ./frontend'
-- task: CmdLine@2
-  inputs:
-    script: 'ls -al'
-
 - script: |
     npm install
     npm run build
+  workingDirectory: frontend
   displayName: 'npm install and build'
 
 - task: PublishBuildArtifacts@1
