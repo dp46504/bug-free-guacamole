@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   FitBox,
   NavColumn,
@@ -14,16 +15,20 @@ import {
   StopStyle,
   BreakBox,
   BreakBoxInput,
+  TimerInput,
 } from './Style.js'
 import { ReactComponent as MainLogo } from '../img/main-logo.svg'
 import { ReactComponent as Circles } from '../img/circle.svg'
 import { ReactComponent as BackArrow } from '../img/back-arrow.svg'
 import { ReactComponent as Start } from '../img/start.svg'
 import { ReactComponent as Stop } from '../img/stop.svg'
+import Roles from '../helpers/Roles'
 
 export default function UserDayView(props) {
   return (
     <FitBox flexDirection='row'>
+      {/* Check Roles */}
+      <Roles role='user' token={localStorage.getItem('token')}></Roles>
       {/* Navigation Menu */}
       <NavColumn width='15%'>
         <FitBox height='20%' justifyContent='center'>
@@ -46,7 +51,9 @@ export default function UserDayView(props) {
             <Title color={colors.dirtyWhite} fontWeight='500' margin='4rem 0'>
               DAY FORMAT
             </Title>
-            <TimerCircle>08:00:00</TimerCircle>
+            <TimerCircle>
+              <TimerInput></TimerInput>
+            </TimerCircle>
             <FitBox flexDirection='row' width='40%'>
               <TimerButton>
                 <Start style={StartStyle} width='50%' height='50%'></Start>

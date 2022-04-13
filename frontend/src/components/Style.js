@@ -489,3 +489,14 @@ export const DayNameLabel = styled.div`
   font-size: 2rem;
   color: ${colors.dirtyWhite};
 `
+export const TimerInput = styled.input.attrs({ type: 'time' })`
+  color: ${colors.darkGreen};
+  font-size: 3rem;
+  font-weight: bold;
+  border: none;
+  background: transparent;
+  outline: none;
+  &::-webkit-calendar-picker-indicator {
+    display: none;
+  }
+`
