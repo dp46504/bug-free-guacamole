@@ -13,7 +13,7 @@
         const socket = io.connect("http://localhost:5000", {
             transports: ["websocket"],
             auth: { 
-                token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoieGQxWXZXN3NvVGFIU3V1YU92OWpoNU1CIiwicm9sZSI6InVzZXIiLCJpYXQiOjE2NDk4NzMwMTh9.bB3ttQj3urdwJfdoiigylTyyVws5RpydmPu3YwQ1Ej8"
+                token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiVmJiVkxCUmxkQzdKQm55WWJMQU85SWhmIiwicm9sZSI6InVzZXIiLCJpYXQiOjE2NDk5MjE2NjB9.yK6j6IcI_5n67cnOIOSDY9Pz9xbRyl_30F5C7wjexeQ"
             } 
         });
 
@@ -21,16 +21,17 @@
             console.log("connected");
         })
 
-        socket.emit("getTime", (data) => {
-            console.log(data.timeLeft);
-        })
-
-        socket.on('sendTimeData', (data) => {
+        socket.on("getTime", (data) => {
             console.log(data);
         })
 
         socket.on("connect_error", (err) =>{
             console.log(err);
+        })
+
+        socket.emit("getTime", (response) => {
+            console.log(response.status);
+            console.log(response.data.timeLeft);
         })
     </script>
 </body>

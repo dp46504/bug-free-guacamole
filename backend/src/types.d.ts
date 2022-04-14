@@ -16,12 +16,12 @@ export interface ServerToClientEvents {
     // noArg: () => void;
     // basicEmit: (a: number, b: string, c: Buffer) => void;
     // withAck: (d: string, callback: (e: number) => void) => void;
-    sendTimeData: (data:TimeData) => void;
+    getTime: (data:TimeData) => void;
 }
   
 export interface ClientToServerEvents {
     hello: () => string;
-    getTime: () => Promise<void|null>; 
+    getTime: (cb: (response: any) => void) => void;
 }
 
 export interface InterServerEvents {
