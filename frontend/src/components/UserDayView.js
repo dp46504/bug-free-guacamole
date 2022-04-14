@@ -30,7 +30,7 @@ import variables from "../variables";
 export default function UserDayView(props) {
   const [breaks, setBreaks] = useState({ break1: {}, break2: {} });
   const [workTime, setWorkTime] = useState("08:00");
-  const [isSet, setIsSet] = useState(true);
+  const [isSet, setIsSet] = useState(false);
   const timerCircleRef = useRef();
   const [searchParams, setSearchParams] = useSearchParams();
   const date = {
@@ -64,21 +64,19 @@ export default function UserDayView(props) {
     }, 1000);
   };
 
+  const socket = io.connect("http://localhost:5000", {
+    transports: ["websocket"],
+    auth: {
+      token: localStorage.getItem("token"),
+    },
+  });
+
   useEffect(() => {
-    startCountdown();
-
-    const socket = io.connect("http://localhost:5000", {
-      transports: ["websocket"],
-      auth: {
-        token: localStorage.getItem("token"),
-      },
-    });
-
     socket.emit("getTime", (response) => {
       if (response.data === null) {
         // There is no work registered for this day and for this user
+        return null;
       }
-
       // Set UI and start countdown
       setIsSet(true);
       timeLeft = response.data.timeLeft;
@@ -103,7 +101,18 @@ export default function UserDayView(props) {
     }).then((result) => {
       if (result.status === 200) {
         // Start the timer
-        startCountdown();
+        console.log("socketid: ", socket.id);
+        socket.emit("getTime", (response) => {
+          if (response.data === null) {
+            // There is no work registered for this day and for this user
+            return null;
+          }
+          // Set UI and start countdown
+          timeLeft = response.data.timeLeft;
+          setIsSet(true);
+          console.log("before start countdown");
+          startCountdown();
+        });
       } else if (result.status === 403) {
         alert("Something went wrong with your credentials");
       } else if (result.status === 400) {
@@ -147,21 +156,23 @@ export default function UserDayView(props) {
             </Title>
             <TimerCircle>
               {/* Conditional rendering input or display */}
-              {!isSet && (
+              {isSet === false ? (
                 <TimerInput
                   onChange={(event) => {
                     setWorkTime(event.target.value);
                   }}
                   value={workTime}
                 ></TimerInput>
+              ) : (
+                <TimerDisplay ref={timerCircleRef}>loading...</TimerDisplay>
               )}
-
-              {isSet && <TimerDisplay ref={timerCircleRef}></TimerDisplay>}
             </TimerCircle>
             <FitBox flexDirection="row" width="40%">
               <TimerButton>
                 <Start
-                  onClick={startTimer}
+                  onClick={() => {
+                    startTimer();
+                  }}
                   style={StartStyle}
                   width="50%"
                   height="50%"
