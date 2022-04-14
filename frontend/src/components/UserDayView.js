@@ -30,6 +30,14 @@ import variables from "../variables";
 export default function UserDayView(props) {
   const [breaks, setBreaks] = useState({ break1: {}, break2: {} });
   const [workTime, setWorkTime] = useState("08:00");
+  const [socket, setSocket] = useState(
+    io.connect("http://localhost:5000", {
+      transports: ["websocket"],
+      auth: {
+        token: localStorage.getItem("token"),
+      },
+    })
+  );
   const [isSet, setIsSet] = useState(false);
   const timerCircleRef = useRef();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -59,17 +67,10 @@ export default function UserDayView(props) {
         clearInterval(interval);
       }
       timerCircleRef.current.innerText = msToTime(timeLeft);
-      console.log(timeLeft);
+
       timeLeft -= 1000;
     }, 1000);
   };
-
-  const socket = io.connect("http://localhost:5000", {
-    transports: ["websocket"],
-    auth: {
-      token: localStorage.getItem("token"),
-    },
-  });
 
   useEffect(() => {
     socket.emit("getTime", (response) => {
