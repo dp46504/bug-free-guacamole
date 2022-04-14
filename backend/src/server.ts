@@ -80,7 +80,7 @@ io.on('connection', (socket) => {
             timeLeft: timeLeft,
             breaks: breaks,
         } 
-        socket.emit('sendTimeData', timeData);
+        socket.emit('getTime', timeData);
     });
 });
 
