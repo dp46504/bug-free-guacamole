@@ -21,7 +21,7 @@ export interface ServerToClientEvents {
   
 export interface ClientToServerEvents {
     hello: () => string;
-    getTime: () => Promise<void|null>; 
+    getTime: (cb: (response: any) => void) => void;
 }
 
 export interface InterServerEvents {

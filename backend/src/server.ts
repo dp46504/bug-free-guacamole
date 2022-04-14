@@ -9,6 +9,7 @@ import dotenv from "dotenv";
 import cors from 'cors';
 import auth from './services/socketAuth';
 import { prisma } from "./services/prismaClient";
+import { callbackify } from 'util';
 
 const port = 5000;
 const app = express();
@@ -26,11 +27,15 @@ io.use(auth);
 io.on('connection', (socket) => {
     console.log('a user connected', socket.data.user?.uuid);
 
-    socket.on('getTime', async () => {
+    socket.on('getTime', async (cb) => {
         const now = new Date();
         const data = socket.data;
         if(data === undefined || data.user === undefined){
-            return null;
+            cb({
+                status: "authentication failed",
+                data: null
+            });
+            return;
         }
         const uuid = data.user.uuid;
 
@@ -60,7 +65,11 @@ io.on('connection', (socket) => {
         })
         
         if(workTime === null || workTime.end === null){
-            return null;
+            cb({
+                status: "work entry not found",
+                data: null
+            })
+            return;
         }
 
         const timeLeft = workTime.end.getTime() - now.getTime();
@@ -80,7 +89,12 @@ io.on('connection', (socket) => {
             timeLeft: timeLeft,
             breaks: breaks,
         } 
-        socket.emit('getTime', timeData);
+    
+        cb({
+            status: "ok",
+            data: timeData
+        })
+        return;
     });
 });
 

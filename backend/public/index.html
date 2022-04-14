@@ -29,7 +29,10 @@
             console.log(err);
         })
 
-        socket.emit("getTime");
+        socket.emit("getTime", (response) => {
+            console.log(response.status);
+            console.log(response.data.timeLeft);
+        })
     </script>
 </body>
 </html>
