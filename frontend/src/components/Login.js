@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import {
@@ -22,6 +22,14 @@ export default function Login(props) {
   const { register, handleSubmit } = useForm()
 
   let history = useNavigate()
+
+  useEffect(() => {
+    if (localStorage.getItem('token') && localStorage.getItem('role')) {
+      history(
+        `/${localStorage.getItem('role') === 'user' ? 'user' : 'administrator'}`
+      )
+    }
+  }, [])
 
   const onSubmit = async (data) => {
     const options = {

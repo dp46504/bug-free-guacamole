@@ -140,7 +140,13 @@ export default function UserDayView(props) {
           <StyledLink to='/user'>Clock Man</StyledLink>
         </FitBox>
         <StyledLink to='/user'>Dashboard</StyledLink>
-        <StyledLink to='/'>Logout</StyledLink>
+        <StyledLink
+          to='/'
+          onClick={() => {
+            localStorage.clear()
+          }}>
+          Logout
+        </StyledLink>
       </NavColumn>
       {/* Main body */}
       <FitBox>

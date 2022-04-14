@@ -13,10 +13,13 @@ import {
 import { ReactComponent as MainLogo } from '../img/main-logo.svg'
 import { ReactComponent as Circles } from '../img/circle.svg'
 import { ReactComponent as BackArrow } from '../img/back-arrow.svg'
+import Roles from '../helpers/Roles'
 
 export default function AdminInspectUser(props) {
   return (
     <FitBox flexDirection='row'>
+      {/* Check Roles */}
+      <Roles role='user'></Roles>
       {/* Navigation Menu */}
       <NavColumn width='15%'>
         <FitBox height='20%' justifyContent='center'>
@@ -25,7 +28,13 @@ export default function AdminInspectUser(props) {
         </FitBox>
         <StyledLink to='/administrator'>Dashboard</StyledLink>
         <StyledLink to='/search'>Search</StyledLink>
-        <StyledLink to='/'>Logout</StyledLink>
+        <StyledLink
+          to='/'
+          onClick={() => {
+            localStorage.clear()
+          }}>
+          Logout
+        </StyledLink>
       </NavColumn>
       {/* Main body */}
       <FitBox>
