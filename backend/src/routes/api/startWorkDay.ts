@@ -61,6 +61,38 @@ export default async (req: Request, res: Response) => {
         return;
     }
 
+    const today = new Date();
+    today.setHours(0);
+    today.setMinutes(0);
+    today.setSeconds(0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    let workEntryExists = -1;
+
+    try {
+        workEntryExists = await prisma.workRegister.count({
+            where: { 
+                user: { 
+                    uuid: userUuid
+                },
+                start: { 
+                    gte: today,
+                    lte: tomorrow
+                }
+            }
+        })
+    } catch(e) {
+        console.log(e);
+        res.sendStatus(500);
+        return;
+    }
+
+    if(workEntryExists !== 0) {
+        res.sendStatus(400);
+        return;
+    }
+
     let workRegister = null;
 
     try {
