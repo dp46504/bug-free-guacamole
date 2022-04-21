@@ -19,8 +19,6 @@ export default async (req: Request, res: Response) => {
 
     for(let i = 0; i < req.body.breaks.length; i++) {
         let b = req.body.breaks[i];
-        console.log(b.breakIn.split(":")[0]);
-        console.log(b.breakIn.split(":")[1]);
         
         const breakInHours = parseInt(b.breakIn.split(":")[0]);
         const breakInMinutes = parseInt(b.breakIn.split(":")[1]);
