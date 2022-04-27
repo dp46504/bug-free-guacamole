@@ -25,13 +25,16 @@
             console.log(err);
         })
 
+        socket.on("break", () => {
+            alert("break");
+        });
+
+        socket.on("endBreak", () => {
+            alert("end break");
+        })
+
         socket.emit("getTime", (response) => {
-            console.log(response.status);
-            
-            if(response.data) {
-                console.log(response.data.timeLeft);
-            }
-            
+            console.log(response);
         })
     </script>
 </body>

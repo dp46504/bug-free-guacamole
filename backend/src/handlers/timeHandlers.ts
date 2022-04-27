@@ -12,7 +12,7 @@ export default (io: Server<ClientToServerEvents, ServerToClientEvents, InterServ
         const data = socket.data;
         if(data === undefined || data.user === undefined){
             cb({
-                status: "authentication failed",
+                error: "authentication failed",
                 data: null
             });
             return;
@@ -46,7 +46,7 @@ export default (io: Server<ClientToServerEvents, ServerToClientEvents, InterServ
         
         if(workTime === null || workTime.end === null){
             cb({
-                status: "work entry not found",
+                error: "work entry not found",
                 data: null
             })
             return;
@@ -55,23 +55,61 @@ export default (io: Server<ClientToServerEvents, ServerToClientEvents, InterServ
         const timeLeft = workTime.end.getTime() - now.getTime();
         let breaks: BreakData[] = [];
 
+        let workStatus, breakStatus = "";
+        let breakTimeLeft = null;
+
+        if(timeLeft <= 0) {
+            workStatus = "ended";
+        } else if(timeLeft >= 0) {
+            workStatus = "ongoing";
+        }
+
         for(let br of workTime.breakRegister){
-            const startsIn = now.getTime() - br.start.getTime();
-            const duration = br.definedTime.getMinutes();
-            
+            const startsIn = br.start.getTime() - now.getTime();
+            const endsIn = br.end.getTime() - now.getTime();
+            const duration = br.definedTime;
+
+            const breakLeft =  br.end.getTime() - now.getTime();
+
+
+            if(startsIn > 0) {
+                setTimeout(()=> {
+                    socket.emit("break");
+                }, startsIn);
+            }
+
+            if(endsIn > 0) {
+                setTimeout(() => {
+                    socket.emit("endBreak");
+                }, endsIn);
+            }
+
+            if(startsIn <= 0 && breakLeft >= 0) {
+                workStatus = "onBreak";
+                breakStatus = "ongoing";
+                breakTimeLeft = breakLeft;
+
+            } else if(startsIn > 0) {
+                breakStatus = "notStarted";
+            } else {
+                breakStatus = "ended";
+            }
+
             breaks.push({
+                status: breakStatus,
                 startsIn: startsIn,
-                duration: duration
+                duration: duration.getMinutes()
             })
         }
 
         const timeData: TimeData = {
             timeLeft: timeLeft,
+            breakTimeLeft: breakTimeLeft != null ? breakTimeLeft : undefined,
             breaks: breaks,
         } 
-    
+
         cb({
-            status: "ok",
+            status: workStatus,
             data: timeData
         })
         return;

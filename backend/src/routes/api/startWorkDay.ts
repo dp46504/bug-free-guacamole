@@ -18,7 +18,12 @@ export default async (req: Request, res: Response) => {
     let definedBreaks = []
 
     for(let i = 0; i < req.body.breaks.length; i++) {
+
         let b = req.body.breaks[i];
+
+        if(Object.keys(b).length === 0) {
+            continue;
+        }
         
         const breakInHours = parseInt(b.breakIn.split(":")[0]);
         const breakInMinutes = parseInt(b.breakIn.split(":")[1]);
@@ -27,8 +32,8 @@ export default async (req: Request, res: Response) => {
         breakTime.setMinutes(parseInt(b.breakTime));
 
         const startBreak = new Date(now.getTime());
-        startBreak.setHours(breakInHours);
-        startBreak.setMinutes(breakInMinutes);
+        startBreak.setHours(startBreak.getHours() + breakInHours);
+        startBreak.setMinutes(startBreak.getMinutes() + breakInMinutes);
 
         const endBreak = new Date(startBreak.getTime());
         endBreak.setMinutes(endBreak.getMinutes() + breakTime.getMinutes());

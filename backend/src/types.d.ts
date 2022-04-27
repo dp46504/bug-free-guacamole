@@ -3,12 +3,14 @@ import { JwtPayload } from "jsonwebtoken";
 import { Server, Socket } from "socket.io";
 
 export type BreakData = {
+    status: string;
     startsIn: number;
     duration: number;
 }
 
 export type TimeData = {
     timeLeft: number;
+    breakTimeLeft?: number; 
     breaks: BreakData[];
 }
 
@@ -17,6 +19,8 @@ export interface ServerToClientEvents {
     // basicEmit: (a: number, b: string, c: Buffer) => void;
     // withAck: (d: string, callback: (e: number) => void) => void;
     getTime: (data:TimeData) => void;
+    break: void;
+    endBreak: void;
 }
   
 export interface ClientToServerEvents {
