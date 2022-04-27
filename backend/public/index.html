@@ -33,6 +33,10 @@
             alert("end break");
         })
 
+        socket.on("endWorkDay", () => {
+            alert("end work day")
+        })
+
         socket.emit("getTime", (response) => {
             console.log(response);
         })

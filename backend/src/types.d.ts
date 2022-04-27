@@ -21,6 +21,7 @@ export interface ServerToClientEvents {
     getTime: (data:TimeData) => void;
     break: void;
     endBreak: void;
+    endWorkDay: void;
 }
   
 export interface ClientToServerEvents {

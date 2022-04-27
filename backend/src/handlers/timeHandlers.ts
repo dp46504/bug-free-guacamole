@@ -53,6 +53,13 @@ export default (io: Server<ClientToServerEvents, ServerToClientEvents, InterServ
         }
 
         const timeLeft = workTime.end.getTime() - now.getTime();
+
+        if(timeLeft > 0) {
+            setTimeout(() => {
+                socket.emit("endWorkDay");
+            }, timeLeft)
+        }
+
         let breaks: BreakData[] = [];
 
         let workStatus, breakStatus = "";
