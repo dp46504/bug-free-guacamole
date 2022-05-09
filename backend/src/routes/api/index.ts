@@ -1,12 +1,14 @@
 import { Router } from "express";
-import register from './register';
-import login from './login';
+import register from "./register";
+import login from "./login";
 import startWorkDay from "./startWorkDay";
 import restAuth from "../../services/restAuth";
+import userDaysDone from "./userDaysDone";
 
 const router = Router();
-router.post('/register', register);
-router.post('/login', login);
-router.post('/start-workday', restAuth, startWorkDay);
+router.post("/register", register);
+router.post("/login", login);
+router.post("/start-workday", restAuth, startWorkDay);
+router.get("/get-days-done", restAuth, userDaysDone);
 
 export default router;
