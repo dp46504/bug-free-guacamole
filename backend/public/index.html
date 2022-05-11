@@ -13,7 +13,7 @@
         const socket = io.connect("http://localhost:5000", {
             transports: ["websocket"],
             auth: { 
-                token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiZTRuSjZYTkk5d3pwZDJTaTYxWVFIcmM0IiwiaWF0IjoxNjQ4NzMxMDc4fQ.lUIvfXtCKbIzl5ZNJQyy_9oMxmYs4kzDpyTr3dE5E-w"
+                token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiT28wbFJnMmpxSGhpUVVvdXF1aUhJZ0xtIiwicm9sZSI6InVzZXIiLCJpYXQiOjE2NTA1MjQxODl9.0hEhR-cYK_R31kOUxdpsQxfDW94t7clLhUmFKxqY8xM"
             } 
         });
 
@@ -21,10 +21,24 @@
             console.log("connected");
         })
 
-        socket.on("hello", () => { console.log("hi"); });
-
         socket.on("connect_error", (err) =>{
             console.log(err);
+        })
+
+        socket.on("break", () => {
+            alert("break");
+        });
+
+        socket.on("endBreak", () => {
+            alert("end break");
+        })
+
+        socket.on("endWorkDay", () => {
+            alert("end work day")
+        })
+
+        socket.emit("getTime", (response) => {
+            console.log(response);
         })
     </script>
 </body>

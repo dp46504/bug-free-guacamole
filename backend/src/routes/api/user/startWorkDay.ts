@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { prisma } from "../../services/prismaClient";
+import { prisma } from "../../../services/prismaClient";
 
 export default async (req: Request, res: Response) => {
 
@@ -18,9 +18,12 @@ export default async (req: Request, res: Response) => {
     let definedBreaks = []
 
     for(let i = 0; i < req.body.breaks.length; i++) {
+
         let b = req.body.breaks[i];
-        console.log(b.breakIn.split(":")[0]);
-        console.log(b.breakIn.split(":")[1]);
+
+        if(Object.keys(b).length === 0) {
+            continue;
+        }
         
         const breakInHours = parseInt(b.breakIn.split(":")[0]);
         const breakInMinutes = parseInt(b.breakIn.split(":")[1]);
@@ -29,8 +32,8 @@ export default async (req: Request, res: Response) => {
         breakTime.setMinutes(parseInt(b.breakTime));
 
         const startBreak = new Date(now.getTime());
-        startBreak.setHours(breakInHours);
-        startBreak.setMinutes(breakInMinutes);
+        startBreak.setHours(startBreak.getHours() + breakInHours);
+        startBreak.setMinutes(startBreak.getMinutes() + breakInMinutes);
 
         const endBreak = new Date(startBreak.getTime());
         endBreak.setMinutes(endBreak.getMinutes() + breakTime.getMinutes());
@@ -58,6 +61,38 @@ export default async (req: Request, res: Response) => {
 
     if(user === null) {
         res.sendStatus(403);
+        return;
+    }
+
+    const today = new Date();
+    today.setHours(0);
+    today.setMinutes(0);
+    today.setSeconds(0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    let workEntryExists = -1;
+
+    try {
+        workEntryExists = await prisma.workRegister.count({
+            where: { 
+                user: { 
+                    uuid: userUuid
+                },
+                start: { 
+                    gte: today,
+                    lte: tomorrow
+                }
+            }
+        })
+    } catch(e) {
+        console.log(e);
+        res.sendStatus(500);
+        return;
+    }
+
+    if(workEntryExists !== 0) {
+        res.sendStatus(400);
         return;
     }
 

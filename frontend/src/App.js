@@ -24,7 +24,7 @@ function App() {
           <Route path='/login' element={<Login />}></Route>
           <Route path='/register' element={<Register />}></Route>
 
-          {/* Private Routes TODO*/}
+          {/* Private Routes*/}
           {/* Administrator routes */}
           <Route path='/administrator' element={<AdminDashboard />}></Route>
           <Route path='/day-info' element={<AdminDayView />}></Route>

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   FitBox,
@@ -10,92 +11,66 @@ import {
   MonthGrid,
   Title,
   colors,
-  BackArrowStyle,
-} from './Style.js'
-import { ReactComponent as MainLogo } from '../img/main-logo.svg'
-import { ReactComponent as BackArrow } from '../img/back-arrow.svg'
-import { ReactComponent as Circles } from '../img/circle.svg'
+} from "./Style.js";
+
+import { ReactComponent as MainLogo } from "../img/main-logo.svg";
+import { ReactComponent as Circles } from "../img/circle.svg";
+import Roles from "../helpers/Roles";
+import getCalendarInfo from "../helpers/getCalendarInfo";
 
 export default function UserDashboard(props) {
+  let history = useNavigate();
+  let [dayData, setDayData] = useState([]);
+
   useEffect(() => {
-    let dayArr = []
-    let daysInMonth = new Date(
-      new Date().getFullYear(),
-      new Date().getMonth() + 1,
-      0
-    ).getDate()
+    getCalendarInfo(setDayData);
+  }, []);
 
-    let daysInPreviousMonth = new Date(
-      new Date().getFullYear(),
-      new Date().getMonth(),
-      0
-    ).getDate()
-
-    let daysOfThePreviousMonthToAdd =
-      new Date(new Date().getFullYear(), new Date().getMonth(), 1).getDay() - 1
-
-    let daysOfTheNextMonthToAdd =
-      (new Date(
-        new Date().getFullYear(),
-        new Date().getMonth() + 1,
-        1
-      ).getDay() +
-        1) %
-      7
-
-    // Adding previous month days to array
-    for (let i = daysOfThePreviousMonthToAdd; i > 0; i--) {
-      dayArr.push({ number: daysInPreviousMonth - i + 1, month: -1 })
-    }
-    // Adding actual month days to array
-    for (let i = 1; i <= daysInMonth; i++) {
-      dayArr.push({ number: i, month: 0 })
-    }
-    // Adding next month days to array
-    for (let i = 1; i <= daysOfTheNextMonthToAdd; i++) {
-      dayArr.push({ number: i, month: 1 })
-    }
-
-    setDayData(dayArr)
-  }, [])
-
-  let [dayData, setDayData] = useState([])
   const monthNames = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ]
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
   return (
-    <FitBox flexDirection='row'>
+    <FitBox flexDirection="row">
+      {/* Check Roles */}
+      <Roles role="user"></Roles>
       {/* Navigation Menu */}
-      <NavColumn width='15%'>
-        <FitBox height='20%' justifyContent='center'>
+      <NavColumn width="15%">
+        <FitBox height="20%" justifyContent="center">
           <MainLogo></MainLogo>
-          <StyledLink to='/user'>Clock Man</StyledLink>
+          <StyledLink to="/user">Clock Man</StyledLink>
         </FitBox>
-        <StyledLink to='/user'>Dashboard</StyledLink>
-        <StyledLink to='/'>Logout</StyledLink>
+        <StyledLink to="/user">Dashboard</StyledLink>
+        <StyledLink
+          to="/"
+          onClick={() => {
+            localStorage.clear();
+          }}
+        >
+          Logout
+        </StyledLink>
       </NavColumn>
       {/* Main body */}
       <FitBox>
-        <Title height='12%'>User</Title>
+        <Title height="12%">User</Title>
         <FitBox
           style={{
             backgroundColor: `${colors.darkGreen}AA`,
-            overflowX: 'hidden',
-            position: 'relative',
-          }}>
-          <BackArrow style={BackArrowStyle}></BackArrow>
-          <Title color='white'>{monthNames[new Date().getMonth()]}</Title>
+            overflowX: "hidden",
+            position: "relative",
+          }}
+        >
+          <Title color="white">{monthNames[new Date().getMonth()]}</Title>
 
           <MonthGrid>
             <DayNameLabel>Mon</DayNameLabel>
@@ -107,35 +82,51 @@ export default function UserDashboard(props) {
             <DayNameLabel>Sun</DayNameLabel>
             {dayData.map((dayInfo) => {
               const isToday =
-                new Date().getDate() === dayInfo.number ? true : false
-              let textColor = null
-              let bckgColor = null
+                new Date().getDate() === dayInfo.number && dayInfo.month !== -1
+                  ? true
+                  : false;
+              let textColor = null;
+              let bckgColor = null;
               switch (isToday) {
                 case true:
-                  textColor = colors.dirtyWhite
-                  bckgColor = colors.maron
-                  break
+                  textColor = colors.dirtyWhite;
+                  bckgColor = colors.maron;
+                  break;
                 case false:
-                  bckgColor = colors.dirtyWhite
+                  bckgColor = colors.dirtyWhite;
                   textColor =
                     dayInfo.month === -1 || dayInfo.month === 1
-                      ? 'gray'
-                      : colors.darkGreen
-                  break
+                      ? "gray"
+                      : colors.darkGreen;
+                  break;
                 default:
-                  bckgColor = colors.dirtyWhite
-                  textColor = colors.darkGreen
+                  bckgColor = colors.dirtyWhite;
+                  textColor = colors.darkGreen;
               }
+              const day = dayInfo.number;
+              const month = dayInfo.monthNumber;
+              const year = dayInfo.year;
               return (
-                <MonthBubble backgroundColor={bckgColor} color={textColor}>
+                <MonthBubble
+                  onClick={() => {
+                    history(`/timer?day=${day}&month=${month}&year=${year}`);
+                  }}
+                  backgroundColor={bckgColor}
+                  color={textColor}
+                >
                   {dayInfo.number}
                 </MonthBubble>
-              )
+              );
             })}
           </MonthGrid>
         </FitBox>
       </FitBox>
-      <Circles style={CirclesStyle}></Circles>
+      <Circles
+        width="100%"
+        height="100%"
+        preserveAspectRatio="xMidYMid slice"
+        style={CirclesStyle}
+      ></Circles>
     </FitBox>
-  )
+  );
 }

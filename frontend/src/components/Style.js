@@ -384,8 +384,8 @@ export const ListItem = styled.div`
 `
 
 export const TimerCircle = styled.div`
-  width: 40%;
-  min-width: 40%;
+  width: 30%;
+  min-width: 300px;
   aspect-ratio: 1;
   border-radius: 50%;
   background-color: ${colors.dirtyWhite};
@@ -488,4 +488,23 @@ export const DayNameLabel = styled.div`
   font-weight: bold;
   font-size: 2rem;
   color: ${colors.dirtyWhite};
+`
+export const TimerInput = styled.input.attrs({ type: 'time' })`
+  color: ${colors.darkGreen};
+  font-size: 3rem;
+  font-weight: bold;
+  border: none;
+  background: transparent;
+  outline: none;
+  &::-webkit-calendar-picker-indicator {
+    display: none;
+  }
+`
+export const TimerDisplay = styled.div`
+  color: ${colors.darkGreen};
+  font-size: 3rem;
+  font-weight: bold;
+  border: none;
+  background: transparent;
+  outline: none;
 `
