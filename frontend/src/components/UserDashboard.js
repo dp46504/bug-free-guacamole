@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   FitBox,
@@ -11,40 +11,38 @@ import {
   MonthGrid,
   Title,
   colors,
-} from './Style.js'
+} from "./Style.js";
 
-import { ReactComponent as MainLogo } from '../img/main-logo.svg'
-import { ReactComponent as Circles } from '../img/circle.svg'
-import Roles from '../helpers/Roles'
+import { ReactComponent as MainLogo } from "../img/main-logo.svg";
+import { ReactComponent as Circles } from "../img/circle.svg";
+import Roles from "../helpers/Roles";
 
 export default function UserDashboard(props) {
-  let history = useNavigate()
+  let history = useNavigate();
 
   useEffect(() => {
-    let dayArr = []
+    let dayArr = [];
     let daysInMonth = new Date(
       new Date().getFullYear(),
       new Date().getMonth() + 1,
       0
-    ).getDate()
+    ).getDate();
 
     let daysInPreviousMonth = new Date(
       new Date().getFullYear(),
       new Date().getMonth(),
       0
-    ).getDate()
+    ).getDate();
 
-    let daysOfThePreviousMonthToAdd =
-      new Date(new Date().getFullYear(), new Date().getMonth(), 1).getDay() - 1
+    let daysOfThePreviousMonthToAdd = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      0
+    ).getDay();
 
     let daysOfTheNextMonthToAdd =
-      (new Date(
-        new Date().getFullYear(),
-        new Date().getMonth() + 1,
-        1
-      ).getDay() +
-        1) %
-      7
+      7 -
+      new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDay();
 
     // Adding previous month days to array
     for (let i = daysOfThePreviousMonthToAdd; i > 0; i--) {
@@ -53,7 +51,7 @@ export default function UserDashboard(props) {
         month: -1,
         monthNumber: new Date().getMonth() - 1,
         year: new Date().getFullYear(),
-      })
+      });
     }
     // Adding actual month days to array
     for (let i = 1; i <= daysInMonth; i++) {
@@ -62,7 +60,7 @@ export default function UserDashboard(props) {
         month: 0,
         monthNumber: new Date().getMonth(),
         year: new Date().getFullYear(),
-      })
+      });
     }
     // Adding next month days to array
     for (let i = 1; i <= daysOfTheNextMonthToAdd; i++) {
@@ -71,56 +69,58 @@ export default function UserDashboard(props) {
         month: 1,
         monthNumber: new Date().getMonth() + 1,
         year: new Date().getFullYear(),
-      })
+      });
     }
 
-    setDayData(dayArr)
-  }, [])
+    setDayData(dayArr);
+  }, []);
 
-  let [dayData, setDayData] = useState([])
+  let [dayData, setDayData] = useState([]);
   const monthNames = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ]
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
   return (
-    <FitBox flexDirection='row'>
+    <FitBox flexDirection="row">
       {/* Check Roles */}
-      <Roles role='user'></Roles>
+      <Roles role="user"></Roles>
       {/* Navigation Menu */}
-      <NavColumn width='15%'>
-        <FitBox height='20%' justifyContent='center'>
+      <NavColumn width="15%">
+        <FitBox height="20%" justifyContent="center">
           <MainLogo></MainLogo>
-          <StyledLink to='/user'>Clock Man</StyledLink>
+          <StyledLink to="/user">Clock Man</StyledLink>
         </FitBox>
-        <StyledLink to='/user'>Dashboard</StyledLink>
+        <StyledLink to="/user">Dashboard</StyledLink>
         <StyledLink
-          to='/'
+          to="/"
           onClick={() => {
-            localStorage.clear()
-          }}>
+            localStorage.clear();
+          }}
+        >
           Logout
         </StyledLink>
       </NavColumn>
       {/* Main body */}
       <FitBox>
-        <Title height='12%'>User</Title>
+        <Title height="12%">User</Title>
         <FitBox
           style={{
             backgroundColor: `${colors.darkGreen}AA`,
-            overflowX: 'hidden',
-            position: 'relative',
-          }}>
-          <Title color='white'>{monthNames[new Date().getMonth()]}</Title>
+            overflowX: "hidden",
+            position: "relative",
+          }}
+        >
+          <Title color="white">{monthNames[new Date().getMonth()]}</Title>
 
           <MonthGrid>
             <DayNameLabel>Mon</DayNameLabel>
@@ -134,47 +134,49 @@ export default function UserDashboard(props) {
               const isToday =
                 new Date().getDate() === dayInfo.number && dayInfo.month !== -1
                   ? true
-                  : false
-              let textColor = null
-              let bckgColor = null
+                  : false;
+              let textColor = null;
+              let bckgColor = null;
               switch (isToday) {
                 case true:
-                  textColor = colors.dirtyWhite
-                  bckgColor = colors.maron
-                  break
+                  textColor = colors.dirtyWhite;
+                  bckgColor = colors.maron;
+                  break;
                 case false:
-                  bckgColor = colors.dirtyWhite
+                  bckgColor = colors.dirtyWhite;
                   textColor =
                     dayInfo.month === -1 || dayInfo.month === 1
-                      ? 'gray'
-                      : colors.darkGreen
-                  break
+                      ? "gray"
+                      : colors.darkGreen;
+                  break;
                 default:
-                  bckgColor = colors.dirtyWhite
-                  textColor = colors.darkGreen
+                  bckgColor = colors.dirtyWhite;
+                  textColor = colors.darkGreen;
               }
-              const day = dayInfo.number
-              const month = dayInfo.monthNumber
-              const year = dayInfo.year
+              const day = dayInfo.number;
+              const month = dayInfo.monthNumber;
+              const year = dayInfo.year;
               return (
                 <MonthBubble
                   onClick={() => {
-                    history(`/timer?day=${day}&month=${month}&year=${year}`)
+                    history(`/timer?day=${day}&month=${month}&year=${year}`);
                   }}
                   backgroundColor={bckgColor}
-                  color={textColor}>
+                  color={textColor}
+                >
                   {dayInfo.number}
                 </MonthBubble>
-              )
+              );
             })}
           </MonthGrid>
         </FitBox>
       </FitBox>
       <Circles
-        width='100%'
-        height='100%'
-        preserveAspectRatio='xMidYMid slice'
-        style={CirclesStyle}></Circles>
+        width="100%"
+        height="100%"
+        preserveAspectRatio="xMidYMid slice"
+        style={CirclesStyle}
+      ></Circles>
     </FitBox>
-  )
+  );
 }
