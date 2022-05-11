@@ -40,9 +40,6 @@ export default function Homepage(props) {
         <StyledLink to='/login'>Log in</StyledLink>
         <StyledLink to='/register'>Register</StyledLink>
         <StyledLink to='/contact'>Contact</StyledLink>
-        {/* ONLY FOR DEVELOPMENT */}
-        <StyledLink to='/user'>USER DASHBOARD</StyledLink>
-        <StyledLink to='/administrator'>ADMIN DASHBOARD</StyledLink>
       </NavColumn>
       {/* Main body */}
 

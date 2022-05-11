@@ -41,6 +41,7 @@ export default function UserDayView(props) {
   )
   const [isSet, setIsSet] = useState(false)
   const timerCircleRef = useRef()
+  const timerButtonRef = useRef()
   const [searchParams, setSearchParams] = useSearchParams()
   const date = {
     day: searchParams.get('day'),
@@ -74,6 +75,13 @@ export default function UserDayView(props) {
   }
 
   useEffect(() => {
+    if (
+      Notification.permission !== 'denied' ||
+      Notification.permission === 'default'
+    ) {
+      Notification.requestPermission()
+    }
+
     socket.emit('getTime', (response) => {
       if (response.data === null) {
         // There is no work registered for this day and for this user
@@ -82,7 +90,37 @@ export default function UserDayView(props) {
       // Set UI and start countdown
       setIsSet(true)
       timeLeft = response.data.timeLeft
+
+      if (timeLeft <= 0) {
+        timeLeft = 0
+        timerButtonRef.current.style.filter = 'saturate(0%)'
+        timerButtonRef.current.style.transform = 'none'
+        timerButtonRef.current.style.cursor = 'not-allowed'
+        timerCircleRef.current.style.filter = 'saturate(0%)'
+        timerCircleRef.current.disabled = true
+      }
       startCountdown()
+    })
+
+    // Push notification for the start of a break
+    socket.on('break', () => {
+      if (Notification.permission === 'granted') {
+        new Notification('Your break starts now!')
+      }
+    })
+
+    //Push notification for the end of a break
+    socket.on('endBreak', () => {
+      if (Notification.permission === 'granted') {
+        new Notification('Your break ends now!')
+      }
+    })
+
+    //Push notification for the end of the work day
+    socket.on('endWorkDay', () => {
+      if (Notification.permission === 'granted') {
+        new Notification('Your work day ends now!')
+      }
     })
   }, [])
 
@@ -178,7 +216,7 @@ export default function UserDayView(props) {
               )}
             </TimerCircle>
             <FitBox flexDirection='row' width='40%'>
-              <TimerButton>
+              <TimerButton ref={timerButtonRef}>
                 <Start
                   onClick={() => {
                     startTimer()
@@ -187,13 +225,13 @@ export default function UserDayView(props) {
                   width='50%'
                   height='50%'></Start>
               </TimerButton>
-              <TimerButton>
+              {/* <TimerButton>
                 <Stop
                   style={StopStyle}
                   fill={colors.dirtyWhite}
                   width='50%'
                   height='50%'></Stop>
-              </TimerButton>
+              </TimerButton> */}
             </FitBox>
           </FitBox>
           {/* Right Side */}

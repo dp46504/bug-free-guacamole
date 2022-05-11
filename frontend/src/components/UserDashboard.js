@@ -132,7 +132,9 @@ export default function UserDashboard(props) {
             <DayNameLabel>Sun</DayNameLabel>
             {dayData.map((dayInfo) => {
               const isToday =
-                new Date().getDate() === dayInfo.number ? true : false
+                new Date().getDate() === dayInfo.number && dayInfo.month !== -1
+                  ? true
+                  : false
               let textColor = null
               let bckgColor = null
               switch (isToday) {
