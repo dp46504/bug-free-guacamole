@@ -19,7 +19,7 @@ export default function AdminDayView(props) {
   return (
     <FitBox flexDirection='row'>
       {/* Check Roles */}
-      <Roles role='user'></Roles>
+      <Roles role='admin'></Roles>
       {/* Navigation Menu */}
       <NavColumn width='15%'>
         <FitBox height='20%' justifyContent='center'>

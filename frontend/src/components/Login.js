@@ -52,6 +52,7 @@ export default function Login(props) {
         }
       })
       .then((data) => {
+        console.log(data.info)
         localStorage.setItem('token', data.accessToken)
         localStorage.setItem('role', data.info.role)
         // Jestem BigMommy robie BigMoney
