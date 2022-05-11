@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { prisma } from "../../services/prismaClient";
+import { prisma } from "../../../services/prismaClient";
 
 export default async (req: Request, res: Response) => {
 
