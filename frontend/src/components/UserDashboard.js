@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import {
   FitBox,
   NavColumn,
@@ -104,7 +103,7 @@ export default function UserDashboard(props) {
                   textColor = colors.darkGreen;
               }
               const day = dayInfo.number;
-              const month = dayInfo.monthNumber;
+              const month = dayInfo.monthNumber + 1;
               const year = dayInfo.year;
               return (
                 <MonthBubble

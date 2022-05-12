@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   FitBox,
   NavColumn,
@@ -19,6 +20,8 @@ import getCalendarInfo from "../helpers/getCalendarInfo";
 
 export default function AdminDashboard(props) {
   let [dayData, setDayData] = useState([]);
+  let history = useNavigate();
+
   const monthNames = [
     "January",
     "February",
@@ -100,8 +103,17 @@ export default function AdminDashboard(props) {
                   bckgColor = colors.dirtyWhite;
                   textColor = colors.darkGreen;
               }
+              const day = dayInfo.number;
+              const month = dayInfo.monthNumber + 1;
+              const year = dayInfo.year;
               return (
-                <MonthBubble backgroundColor={bckgColor} color={textColor}>
+                <MonthBubble
+                  onClick={() => {
+                    history(`/day-info?day=${day}&month=${month}&year=${year}`);
+                  }}
+                  backgroundColor={bckgColor}
+                  color={textColor}
+                >
                   {dayInfo.number}
                 </MonthBubble>
               );
