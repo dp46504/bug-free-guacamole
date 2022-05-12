@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   FitBox,
   NavColumn,
@@ -18,6 +19,7 @@ import variables from '../variables'
 
 export default function AdminDayView(props) {
   let [usersInfo, setUsersInfo] = useState([])
+  let history = useNavigate()
 
   const options = {
     headers: {
@@ -68,6 +70,7 @@ export default function AdminDayView(props) {
           Logout
         </StyledLink>
       </NavColumn>
+
       {/* Main body */}
       <FitBox>
         <Title height='12%'>Administrator</Title>
@@ -77,7 +80,11 @@ export default function AdminDayView(props) {
           <Title color={colors.dirtyWhite} fontWeight='500' margin='2rem 0'>
             DAY FORMAT
           </Title>
-          <BackArrow style={BackArrowStyle}></BackArrow>
+          <BackArrow
+            style={BackArrowStyle}
+            onClick={() => {
+              history('/administrator')
+            }}></BackArrow>
           <ListItem>
             <div style={{ gridArea: 'text1' }}>John Doe</div>
             <div style={{ gridArea: 'text2' }}>In Progress</div>
@@ -85,7 +92,11 @@ export default function AdminDayView(props) {
           </ListItem>
         </DashboardBodyFlex>
       </FitBox>
-      <Circles style={CirclesStyle}></Circles>
+      <Circles
+        width='100%'
+        height='100%'
+        preserveAspectRatio='xMidYMid slice'
+        style={CirclesStyle}></Circles>
     </FitBox>
   )
 }
