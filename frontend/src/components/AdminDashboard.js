@@ -69,7 +69,6 @@ export default function AdminDashboard(props) {
             position: "relative",
           }}
         >
-          <BackArrow style={BackArrowStyle}></BackArrow>
           <Title color="white">{monthNames[new Date().getMonth()]}</Title>
 
           <MonthGrid>
