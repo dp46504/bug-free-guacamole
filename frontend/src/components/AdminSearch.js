@@ -64,7 +64,12 @@ export default function AdminSearch(props) {
           </ListItem>
         </DashboardBodyFlex>
       </FitBox>
-      <Circles style={CirclesStyle}></Circles>
+      <Circles
+        width="100%"
+        height="100%"
+        preserveAspectRatio="xMidYMid slice"
+        style={CirclesStyle}
+      ></Circles>
     </FitBox>
   );
 }
