@@ -1,6 +1,13 @@
 import { Request, Response } from "express";
 import { prisma } from "../../../services/prismaClient";
 
+interface userWorktimeInterface {
+  definedTime: Date;
+  start: Date|null;
+  end: Date|null;
+  status?: string;
+}
+
 export default async (req: Request, res: Response) => {
     if (req.body.year === undefined || req.body.month === undefined || req.body.day === undefined){
       res.sendStatus(400);
@@ -39,15 +46,25 @@ export default async (req: Request, res: Response) => {
       return;
     }
 
-    let worktime:Array<Object> = [];
+    let worktimes:Array<userWorktimeInterface> = [];
 
-    worktime = await prisma.$queryRaw`SELECT definedTime, User.firstname, User.lastname, User.uuid FROM WorkRegister JOIN User ON WorkRegister.userId = User.id WHERE DATE(ROUND(CAST(start AS DATE) / 1000), 'unixepoch') = ${dateString}`;
+    worktimes = await prisma.$queryRaw`SELECT definedTime, start, end, User.firstname, User.lastname, User.uuid FROM WorkRegister JOIN User ON WorkRegister.userId = User.id WHERE DATE(ROUND(CAST(start AS DATE) / 1000), 'unixepoch') = ${dateString}`;
 
-    if (worktime.length === 0) {
+    if (worktimes.length === 0) {
         res.send(null);
         return;
     }
 
-    res.send(worktime);
+    const now = new Date();
+    worktimes.map((worktime) => {
+        if (worktime.end === null) {
+            return;
+        }
+        
+        let worktimeEnd = new Date(worktime.end);
+        worktime.status = worktimeEnd.getTime() < now.getTime() ? "done" : "in progress";
+    });
+
+    res.send(worktimes);
     return;
 };
