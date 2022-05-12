@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import {
   FitBox,
   NavColumn,
@@ -20,6 +20,13 @@ import variables from '../variables'
 export default function AdminDayView(props) {
   let [usersInfo, setUsersInfo] = useState([])
   let history = useNavigate()
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const date = {
+    day: searchParams.get('day'),
+    month: searchParams.get('month'),
+    year: searchParams.get('year'),
+  }
 
   const options = {
     headers: {
@@ -28,9 +35,9 @@ export default function AdminDayView(props) {
     },
     method: 'POST',
     body: JSON.stringify({
-      day: 12,
-      month: 5,
-      year: 2022,
+      day: date.day,
+      month: date.month,
+      year: date.year,
     }),
   }
 
@@ -78,18 +85,27 @@ export default function AdminDayView(props) {
           backgroundColor={`${colors.darkGreen}AA`}
           justifyContent='flex-start'>
           <Title color={colors.dirtyWhite} fontWeight='500' margin='2rem 0'>
-            DAY FORMAT
+            {`${date.day}.${date.month}.${date.year}`}
           </Title>
           <BackArrow
             style={BackArrowStyle}
             onClick={() => {
               history('/administrator')
             }}></BackArrow>
-          <ListItem>
-            <div style={{ gridArea: 'text1' }}>John Doe</div>
-            <div style={{ gridArea: 'text2' }}>In Progress</div>
-            <div style={{ gridArea: 'text3' }}>21:37:00</div>
-          </ListItem>
+          {usersInfo.map((info) => {
+            return (
+              <ListItem>
+                <div
+                  style={{
+                    gridArea: 'text1',
+                  }}>{`${info.firstname} ${info.lastname}`}</div>
+                <div style={{ gridArea: 'text2' }}>{`${info.status}`}</div>
+                <div style={{ gridArea: 'text3' }}>{`${new Date(
+                  info.definedTime
+                ).getHours()}:${new Date(info.definedTime).getMinutes()}`}</div>
+              </ListItem>
+            )
+          })}
         </DashboardBodyFlex>
       </FitBox>
       <Circles
