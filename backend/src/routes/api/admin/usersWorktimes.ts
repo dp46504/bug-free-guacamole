@@ -7,17 +7,15 @@ export default async (req: Request, res: Response) => {
       return;
     }
 
-    let year = req.body.year;
+    let year: number | string = req.body.year;
     let month: number | string = req.body.month;
-    let day = req.body.day;
+    let day: number | string = req.body.day;
 
-    if (month < 10) month = '0'+month;
-    if (day < 10) day = '0'+day;
+    if (month < 10) month = '0'+ month;
+    if (day < 10) day = '0'+ day;
 
-    let dateString = year + '-' + month + '-' + day; 
-
+    const dateString = year + '-' + month + '-' + day; 
     const userUuid = req.body.user.uuid;
-
     let user = null;
 
     try {
@@ -41,7 +39,7 @@ export default async (req: Request, res: Response) => {
       return;
     }
 
-    let worktime:Array<Object> = new Array();
+    let worktime:Array<Object> = [];
 
     worktime = await prisma.$queryRaw`SELECT definedTime, User.firstname, User.lastname, User.uuid FROM WorkRegister JOIN User ON WorkRegister.userId = User.id WHERE DATE(ROUND(CAST(start AS DATE) / 1000), 'unixepoch') = ${dateString}`;
 

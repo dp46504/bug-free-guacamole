@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { prisma } from "../../../services/prismaClient";
 
-interface userWorktimeIterface {
+interface userWorktimeInterface {
     definedTime: Date;
     start: Date|null;
     end: Date|null;
@@ -41,9 +41,9 @@ export default async (req: Request, res: Response) => {
       return;
     }
 
-    let worktimes:userWorktimeIterface[] = [];
+    let worktimes:userWorktimeInterface[] = [];
 
-    try{
+    try {
         worktimes = await prisma.workRegister.findMany({
             where: {
                 user: {
@@ -55,8 +55,8 @@ export default async (req: Request, res: Response) => {
                 start: true,
                 end: true
             }
-        })
-    }catch(e) {
+        });
+    } catch(e) {
         console.log(e);
         res.sendStatus(500);
         return;
@@ -72,12 +72,9 @@ export default async (req: Request, res: Response) => {
         if (worktime.end === null) {
             return;
         }
+        
         let worktimeEnd = new Date(worktime.end);
-        if (worktimeEnd.getTime() < now.getTime()){
-            worktime.status = "done";
-        }else{
-            worktime.status = "in progress";
-        }
+        worktime.status = worktimeEnd.getTime() < now.getTime() ? "done" : "in progress";
     });
 
     res.send(worktimes);
