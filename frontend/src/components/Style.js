@@ -197,12 +197,12 @@ export const HomePageContent = styled.div`
   display: grid;
   width: 85%;
   height: 100%;
-  padding: 0 3rem;
+  padding: 3rem 3rem 0 3rem;
   transition: all 500ms;
   overflow-y: scroll;
 
   @media screen and (min-width: 1400px) {
-    padding: 0 10rem;
+    padding: 5rem 10rem 0 10rem;
   }
   grid-template-areas:
     'title1 title1 title1 title1 title1 title1 title1 title1'

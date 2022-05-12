@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   FitBox,
   NavColumn,
@@ -14,8 +14,40 @@ import { ReactComponent as MainLogo } from '../img/main-logo.svg'
 import { ReactComponent as Circles } from '../img/circle.svg'
 import { ReactComponent as BackArrow } from '../img/back-arrow.svg'
 import Roles from '../helpers/Roles'
+import variables from '../variables'
 
 export default function AdminDayView(props) {
+  let [usersInfo, setUsersInfo] = useState([])
+
+  const options = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+    method: 'POST',
+    body: JSON.stringify({
+      day: 12,
+      month: 5,
+      year: 2022,
+    }),
+  }
+
+  fetch(variables.endpoints.users_worktimes, options)
+    .then((response) => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        return alert('Something went wrong!')
+      }
+    })
+    .then((data) => {
+      if (data === null) {
+        return alert('No data to fetch.')
+      } else {
+        setUsersInfo(data)
+      }
+    })
+
   return (
     <FitBox flexDirection='row'>
       {/* Check Roles */}
