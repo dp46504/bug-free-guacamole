@@ -381,6 +381,13 @@ export const ListItem = styled.div`
 
   display: grid;
   grid-template-areas: 'text1 . text2 . text3';
+
+  transition: all 250ms ease-in-out;
+
+  &:hover {
+    background-color: ${`${colors.maron}BB`};
+    transform: scale(1.01);
+  }
 `
 
 export const TimerCircle = styled.div`

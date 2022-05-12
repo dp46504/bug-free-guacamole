@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import {
   FitBox,
@@ -28,34 +28,36 @@ export default function AdminDayView(props) {
     year: searchParams.get('year'),
   }
 
-  const options = {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    },
-    method: 'POST',
-    body: JSON.stringify({
-      day: date.day,
-      month: date.month,
-      year: date.year,
-    }),
-  }
+  useEffect(() => {
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        day: date.day,
+        month: date.month,
+        year: date.year,
+      }),
+    }
 
-  fetch(variables.endpoints.users_worktimes, options)
-    .then((response) => {
-      if (response.ok) {
-        return response.json()
-      } else {
-        return alert('Something went wrong!')
-      }
-    })
-    .then((data) => {
-      if (data === null) {
-        return alert('No data to fetch.')
-      } else {
-        setUsersInfo(data)
-      }
-    })
+    fetch(variables.endpoints.users_worktimes, options)
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
+        } else {
+          return alert('Something went wrong!')
+        }
+      })
+      .then((data) => {
+        if (data === null) {
+          return alert('No data to fetch.')
+        } else {
+          setUsersInfo(data)
+        }
+      })
+  }, [])
 
   return (
     <FitBox flexDirection='row'>
@@ -94,7 +96,16 @@ export default function AdminDayView(props) {
             }}></BackArrow>
           {usersInfo.map((info) => {
             return (
-              <ListItem>
+              <ListItem
+                style={{
+                  cursor: 'pointer',
+                }}
+                key={info.uuid}
+                onClick={() => {
+                  history(
+                    `/user-info?uuid=${info.uuid}&name=${info.firstname}%20${info.lastname}`
+                  )
+                }}>
                 <div
                   style={{
                     gridArea: 'text1',
