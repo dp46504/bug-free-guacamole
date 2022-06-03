@@ -84,7 +84,11 @@ export default function AdminDashboard(props) {
             <DayNameLabel>Sun</DayNameLabel>
             {dayData.map((dayInfo) => {
               const isToday =
-                new Date().getDate() === dayInfo.number ? true : false;
+                new Date().getDate() === dayInfo.number &&
+                dayInfo.month !== -1 &&
+                dayInfo.month !== 1
+                  ? true
+                  : false;
               let textColor = null;
               let bckgColor = null;
               switch (isToday) {
@@ -108,6 +112,8 @@ export default function AdminDashboard(props) {
               const year = dayInfo.year;
               return (
                 <MonthBubble
+                  isToday={isToday}
+                  admin={true}
                   onClick={() => {
                     history(`/day-info?day=${day}&month=${month}&year=${year}`);
                   }}

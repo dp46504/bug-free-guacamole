@@ -484,10 +484,12 @@ export const MonthBubble = styled.div`
   }};
   &:hover {
     transform: ${(props) => {
-      return props.isToday ? "scale(1.1)" : "none";
+      return props.isToday || props.admin ? "scale(1.1)" : "none";
     }};
     box-shadow: ${(props) => {
-      return props.isToday ? `0rem 0rem 2rem ${colors.darkGreen}` : "none";
+      return props.isToday || props.admin
+        ? `0rem 0rem 2rem ${colors.darkGreen}`
+        : "none";
     }};
   }
 `;
