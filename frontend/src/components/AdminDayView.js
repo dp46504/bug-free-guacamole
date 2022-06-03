@@ -110,6 +110,14 @@ export default function AdminDayView(props) {
             </ListItem>
           )}
           {usersInfo.map((info) => {
+            let hours =
+              new Date(info.definedTime).getHours().length > 1
+                ? new Date(info.definedTime).getHours()
+                : `0${new Date(info.definedTime).getHours()}`;
+            let minutes =
+              new Date(info.definedTime).getMinutes().length > 1
+                ? new Date(info.definedTime).getMinutes()
+                : `0${new Date(info.definedTime).getMinutes()}`;
             return (
               <ListItem
                 style={{
@@ -128,9 +136,7 @@ export default function AdminDayView(props) {
                   }}
                 >{`${info.firstname} ${info.lastname}`}</div>
                 <div style={{ gridArea: "text2" }}>{`${info.status}`}</div>
-                <div style={{ gridArea: "text3" }}>{`${new Date(
-                  info.definedTime
-                ).getHours()}:${new Date(info.definedTime).getMinutes()}`}</div>
+                <div style={{ gridArea: "text3" }}>{`${hours}:${minutes}`}</div>
               </ListItem>
             );
           })}
