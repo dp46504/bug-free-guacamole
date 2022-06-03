@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   FitBox,
@@ -16,14 +16,38 @@ import { ReactComponent as MainLogo } from "../img/main-logo.svg";
 import { ReactComponent as Circles } from "../img/circle.svg";
 import { ReactComponent as BackArrow } from "../img/back-arrow.svg";
 import Roles from "../helpers/Roles";
+import { endpoints } from "../variables";
 import _ from "lodash";
 
 export default function AdminSearch(props) {
   let history = useNavigate();
+  const [users, setUsers] = useState([]);
 
-  let debouncedSearch = _.debounce((value) => {
-    console.log(value);
-  }, 1000);
+  let debouncedSearch = _.debounce((searchValue) => {
+    const options = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      method: "POST",
+      body: JSON.stringify({
+        search: searchValue,
+      }),
+    };
+
+    fetch(endpoints.admin_search, options)
+      .then((JSONresult) => {
+        if (!JSONresult.ok) return null;
+        return JSONresult.json();
+      })
+      .then((result) => {
+        if (result === null) {
+          setUsers([]);
+          return;
+        }
+        setUsers(result);
+      });
+  }, 500);
 
   return (
     <FitBox flexDirection="row">
@@ -69,11 +93,42 @@ export default function AdminSearch(props) {
               debouncedSearch(e.target.value);
             }}
           ></SearchInput>
-          <ListItem>
-            <div style={{ gridArea: "text1" }}>John Doe</div>
-            <div style={{ gridArea: "text2" }}>In Progress</div>
-            <div style={{ gridArea: "text3" }}>21:37:00</div>
-          </ListItem>
+          {users.length !== 0 &&
+            users.map((userInfo, index) => {
+              let time = userInfo.timeLeft
+                ? new Date(
+                    userInfo.timeLeft +
+                      new Date(userInfo.timeLeft).getTimezoneOffset() *
+                        60 *
+                        1000
+                  )
+                    .toLocaleTimeString()
+                    .slice(0, 5)
+                : null;
+
+              return (
+                <ListItem
+                  onClick={() => {
+                    history(
+                      `/user-info?uuid=${userInfo.uuid}&name=${userInfo.firstname}%20${userInfo.lastname}`
+                    );
+                  }}
+                  key={index}
+                >
+                  <div
+                    style={{ gridArea: "text1" }}
+                  >{`${userInfo.firstname} ${userInfo.lastname}`}</div>
+                  <div style={{ gridArea: "text2" }}>{userInfo.status}</div>
+
+                  {time !== null && (
+                    <div style={{ gridArea: "text3" }}>{time}</div>
+                  )}
+                  {time === null && (
+                    <div style={{ gridArea: "text3" }}>--:--</div>
+                  )}
+                </ListItem>
+              );
+            })}
         </DashboardBodyFlex>
       </FitBox>
       <Circles
