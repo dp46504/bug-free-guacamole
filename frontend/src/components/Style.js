@@ -381,6 +381,10 @@ export const ListItem = styled.div`
 
   display: grid;
   grid-template-areas: "text1 . text2 . text3";
+  place-items: center;
+  gap: 0.4rem;
+
+  user-select: none;
 
   transition: all 250ms ease-in-out;
 
