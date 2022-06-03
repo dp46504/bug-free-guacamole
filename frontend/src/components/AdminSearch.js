@@ -16,9 +16,15 @@ import { ReactComponent as MainLogo } from "../img/main-logo.svg";
 import { ReactComponent as Circles } from "../img/circle.svg";
 import { ReactComponent as BackArrow } from "../img/back-arrow.svg";
 import Roles from "../helpers/Roles";
+import _ from "lodash";
 
 export default function AdminSearch(props) {
   let history = useNavigate();
+
+  let debouncedSearch = _.debounce((value) => {
+    console.log(value);
+  }, 1000);
+
   return (
     <FitBox flexDirection="row">
       {/* Check Roles */}
@@ -56,7 +62,13 @@ export default function AdminSearch(props) {
               history(-1);
             }}
           ></BackArrow>
-          <SearchInput type="text" placeholder="Search here..."></SearchInput>
+          <SearchInput
+            type="text"
+            placeholder="Search here..."
+            onChange={(e) => {
+              debouncedSearch(e.target.value);
+            }}
+          ></SearchInput>
           <ListItem>
             <div style={{ gridArea: "text1" }}>John Doe</div>
             <div style={{ gridArea: "text2" }}>In Progress</div>
