@@ -1,12 +1,12 @@
-import styled, { createGlobalStyle } from 'styled-components'
-import { Link } from 'react-router-dom'
+import styled, { createGlobalStyle } from "styled-components";
+import { Link } from "react-router-dom";
 
 export const colors = {
-  darkGreen: '#246A73',
-  lightGreen: '#368F8B',
-  dirtyWhite: '#F7F9F9',
-  maron: '#904E55',
-}
+  darkGreen: "#246A73",
+  lightGreen: "#368F8B",
+  dirtyWhite: "#F7F9F9",
+  maron: "#904E55",
+};
 
 export const GlobalStyles = createGlobalStyle`
 
@@ -37,34 +37,34 @@ html,body{
 svg{
   animation: fadeIn 1s both;
 }
-`
+`;
 export const FitBox = styled.div`
   height: ${(props) => {
-    return props.height ? props.height : '100%'
+    return props.height ? props.height : "100%";
   }};
   width: ${(props) => {
-    return props.width ? props.width : '100%'
+    return props.width ? props.width : "100%";
   }};
   display: flex;
   flex-direction: ${(props) => {
-    return props.flexDirection ? props.flexDirection : 'column'
+    return props.flexDirection ? props.flexDirection : "column";
   }};
   justify-content: ${(props) => {
-    return props.justifyContent ? props.justifyContent : 'space-evenly'
+    return props.justifyContent ? props.justifyContent : "space-evenly";
   }};
   align-items: ${(props) => {
-    return props.alignItems ? props.alignItems : 'center'
+    return props.alignItems ? props.alignItems : "center";
   }};
   flex-wrap: ${(props) => {
-    return props.wrap ? props.wrap : 'no-wrap'
+    return props.wrap ? props.wrap : "no-wrap";
   }};
-`
+`;
 
 export const NavColumn = styled(FitBox)`
   background-color: ${colors.darkGreen};
   color: ${colors.dirtyWhite};
   min-width: 150px;
-`
+`;
 
 export const StyledLink = styled(Link)`
   font-size: 1.5rem;
@@ -77,113 +77,113 @@ export const StyledLink = styled(Link)`
   &:hover {
     transform: scale(1.1);
   }
-`
+`;
 
 export const MainBody = styled(FitBox)`
   overflow-y: ${(props) => {
-    return props.overflowY ? props.overflowY : 'scroll'
+    return props.overflowY ? props.overflowY : "scroll";
   }};
-`
+`;
 export const DashboardBodyFlex = styled(FitBox)`
   overflow-y: ${(props) => {
-    return props.overflowY ? props.overflowY : 'scroll'
+    return props.overflowY ? props.overflowY : "scroll";
   }};
   background-color: ${(props) => {
-    return props.backgroundColor ? props.backgroundColor : ''
+    return props.backgroundColor ? props.backgroundColor : "";
   }};
   position: relative;
-`
+`;
 
 export const WaveStyle = {
-  position: 'fixed',
+  position: "fixed",
   bottom: 0,
-  left: '15%',
+  left: "15%",
   zIndex: -1,
-}
+};
 
 export const BlobBottomLeftStyle = {
-  position: 'fixed',
+  position: "fixed",
   bottom: 0,
-  left: '15%',
+  left: "15%",
   zIndex: -1,
-}
+};
 
 export const BlobTopRightStyle = {
-  position: 'fixed',
+  position: "fixed",
   top: 0,
   right: 0,
   zIndex: -1,
-}
+};
 
 export const BlobTopLeftStyle = {
-  position: 'fixed',
+  position: "fixed",
   top: 0,
-  left: '15%',
+  left: "15%",
   zIndex: -1,
-}
+};
 
 export const BlobBottomRightStyle = {
-  position: 'fixed',
+  position: "fixed",
   bottom: 0,
   right: 0,
   zIndex: -1,
-}
+};
 
 export const BackgroundStyle2 = {
-  position: 'fixed',
+  position: "fixed",
   top: 0,
   right: 0,
   zIndex: -1,
-}
+};
 
 export const BackgroundStyle = {
-  position: 'fixed',
+  position: "fixed",
   bottom: 0,
-  left: '15%',
+  left: "15%",
   zIndex: -1,
-}
+};
 
 export const CirclesStyle = {
-  position: 'fixed',
+  position: "fixed",
   zIndex: -1,
-}
+};
 
 export const BackArrowStyle = {
-  position: 'absolute',
-  top: '2rem',
-  left: '2rem',
-  cursor: 'pointer',
-}
+  position: "absolute",
+  top: "2rem",
+  left: "2rem",
+  cursor: "pointer",
+};
 
 export const StartStyle = {
-  position: 'absolute',
-  left: '30%',
-  top: '23%',
-}
+  position: "absolute",
+  left: "30%",
+  top: "23%",
+};
 
 export const StopStyle = {
-  position: 'absolute',
-  left: '26%',
-  top: '25%',
-}
+  position: "absolute",
+  left: "26%",
+  top: "25%",
+};
 
 export const Title = styled(FitBox)`
   font-size: ${(props) => {
-    return props.fontSize ? props.fontSize : '2.5rem'
+    return props.fontSize ? props.fontSize : "2.5rem";
   }};
   height: ${(props) => {
-    return props.height ? props.height : 'fit-content'
+    return props.height ? props.height : "fit-content";
   }};
   font-weight: ${(props) => {
-    return props.fontWeight ? props.fontWeight : 'bold'
+    return props.fontWeight ? props.fontWeight : "bold";
   }};
   color: ${(props) => {
-    return props.color ? props.color : colors.darkGreen
+    return props.color ? props.color : colors.darkGreen;
   }};
   margin: ${(props) => {
-    return props.margin ? props.margin : '0'
+    return props.margin ? props.margin : "0";
   }};
-`
+`;
 
 export const TextBox = styled(FitBox)`
   font-size: 1.2rem;
@@ -191,7 +191,7 @@ export const TextBox = styled(FitBox)`
   color: ${colors.darkGreen};
   text-align: center;
   mix-blend-mode: color-dodge;
-`
+`;
 
 export const HomePageContent = styled.div`
   display: grid;
@@ -205,49 +205,49 @@ export const HomePageContent = styled.div`
     padding: 5rem 10rem 0 10rem;
   }
   grid-template-areas:
-    'title1 title1 title1 title1 title1 title1 title1 title1'
-    'text1 text1 text1 . . . image1 image1'
-    'text1 text1 text1 . . . image1 image1'
-    'text1 text1 text1 . . . image1 image1'
-    'title2 title2 title2 title2 title2 title2 title2 title2'
-    'image2 image2 . . . text2 text2 text2'
-    'image2 image2 . . . text2 text2 text2'
-    'image2 image2 . . . text2 text2 text2';
+    "title1 title1 title1 title1 title1 title1 title1 title1"
+    "text1 text1 text1 . . . image1 image1"
+    "text1 text1 text1 . . . image1 image1"
+    "text1 text1 text1 . . . image1 image1"
+    "title2 title2 title2 title2 title2 title2 title2 title2"
+    "image2 image2 . . . text2 text2 text2"
+    "image2 image2 . . . text2 text2 text2"
+    "image2 image2 . . . text2 text2 text2";
 
   @media screen and (max-width: 900px) {
     grid-template-areas:
-      'title1 title1 title1 title1 title1 title1 title1 title1'
-      'text1 text1 text1 text1 text1 text1 text1 text1'
-      'text1 text1 text1 text1 text1 text1 text1 text1'
-      'text1 text1 text1 text1 text1 text1 text1 text1'
-      'title2 title2 title2 title2 title2 title2 title2 title2'
-      'text2 text2 text2 text2 text2 text2 text2 text2'
-      'text2 text2 text2 text2 text2 text2 text2 text2'
-      'text2 text2 text2 text2 text2 text2 text2 text2';
+      "title1 title1 title1 title1 title1 title1 title1 title1"
+      "text1 text1 text1 text1 text1 text1 text1 text1"
+      "text1 text1 text1 text1 text1 text1 text1 text1"
+      "text1 text1 text1 text1 text1 text1 text1 text1"
+      "title2 title2 title2 title2 title2 title2 title2 title2"
+      "text2 text2 text2 text2 text2 text2 text2 text2"
+      "text2 text2 text2 text2 text2 text2 text2 text2"
+      "text2 text2 text2 text2 text2 text2 text2 text2";
   }
-`
+`;
 
 export const StyledForm = styled.form`
   height: ${(props) => {
-    return props.height ? props.height : '100%'
+    return props.height ? props.height : "100%";
   }};
   width: ${(props) => {
-    return props.width ? props.width : '100%'
+    return props.width ? props.width : "100%";
   }};
   display: flex;
   flex-direction: ${(props) => {
-    return props.flexDirection ? props.flexDirection : 'column'
+    return props.flexDirection ? props.flexDirection : "column";
   }};
   justify-content: ${(props) => {
-    return props.justifyContent ? props.justifyContent : 'space-evenly'
+    return props.justifyContent ? props.justifyContent : "space-evenly";
   }};
   align-items: ${(props) => {
-    return props.alignItems ? props.alignItems : 'center'
+    return props.alignItems ? props.alignItems : "center";
   }};
   flex-wrap: ${(props) => {
-    return props.wrap ? props.wrap : 'no-wrap'
+    return props.wrap ? props.wrap : "no-wrap";
   }};
-`
+`;
 
 export const StyledInput = styled.input`
   width: 75%;
@@ -290,7 +290,7 @@ export const StyledInput = styled.input`
   &:focus {
     transform: scale(1.05);
   }
-`
+`;
 
 export const SubmitButton = styled.button`
   width: 25%;
@@ -317,7 +317,7 @@ export const SubmitButton = styled.button`
   &:hover {
     transform: scale(1.05);
   }
-`
+`;
 
 export const SearchInput = styled.input`
   width: 75%;
@@ -359,7 +359,7 @@ export const SearchInput = styled.input`
   &:focus {
     transform: scale(1.05);
   }
-`
+`;
 
 export const ListItem = styled.div`
   width: 75%;
@@ -380,7 +380,7 @@ export const ListItem = styled.div`
   box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.1);
 
   display: grid;
-  grid-template-areas: 'text1 . text2 . text3';
+  grid-template-areas: "text1 . text2 . text3";
 
   transition: all 250ms ease-in-out;
 
@@ -388,7 +388,7 @@ export const ListItem = styled.div`
     background-color: ${`${colors.maron}BB`};
     transform: scale(1.01);
   }
-`
+`;
 
 export const TimerCircle = styled.div`
   width: 30%;
@@ -403,7 +403,7 @@ export const TimerCircle = styled.div`
 
   display: grid;
   place-items: center;
-`
+`;
 
 export const TimerButton = styled.button`
   width: 5rem;
@@ -420,18 +420,18 @@ export const TimerButton = styled.button`
   &:hover {
     transform: scale(1.1);
   }
-`
+`;
 
 export const BreakBox = styled.div`
   width: 60%;
   height: 15%;
   display: grid;
   grid-template-areas:
-    'breakIn . breakInTime breakInTime'
-    'duration . durationTime durationTime';
+    "breakIn . breakInTime breakInTime"
+    "duration . durationTime durationTime";
   background-color: ${colors.dirtyWhite};
   place-items: center;
-`
+`;
 
 export const BreakBoxInput = styled.input`
   line-height: 2.5rem;
@@ -445,7 +445,7 @@ export const BreakBoxInput = styled.input`
   border: none;
   outline: none;
   border-bottom: 1px solid ${`${colors.darkGreen}AA`};
-`
+`;
 
 export const MonthGrid = styled.div`
   display: flex;
@@ -458,7 +458,7 @@ export const MonthGrid = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-`
+`;
 
 export const MonthBubble = styled.div`
   width: 5rem;
@@ -467,23 +467,30 @@ export const MonthBubble = styled.div`
   aspect-ratio: 1;
   border-radius: 50%;
   background-color: ${(props) => {
-    return props.backgroundColor ? props.backgroundColor : colors.dirtyWhite
+    return props.backgroundColor ? props.backgroundColor : colors.dirtyWhite;
   }};
   color: ${(props) => {
-    return props.color ? props.color : colors.darkGreen
+    return props.color ? props.color : colors.darkGreen;
   }};
+  user-select: none;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: bold;
   font-size: 2rem;
   transition: all 200ms;
-  cursor: pointer;
+  cursor: ${(props) => {
+    return props.isToday ? "pointer" : "normal";
+  }};
   &:hover {
-    transform: scale(1.1);
-    box-shadow: 0rem 0rem 2rem ${colors.darkGreen};
+    transform: ${(props) => {
+      return props.isToday ? "scale(1.1)" : "none";
+    }};
+    box-shadow: ${(props) => {
+      return props.isToday ? `0rem 0rem 2rem ${colors.darkGreen}` : "none";
+    }};
   }
-`
+`;
 
 export const DayNameLabel = styled.div`
   width: 5rem;
@@ -495,8 +502,8 @@ export const DayNameLabel = styled.div`
   font-weight: bold;
   font-size: 2rem;
   color: ${colors.dirtyWhite};
-`
-export const TimerInput = styled.input.attrs({ type: 'time' })`
+`;
+export const TimerInput = styled.input.attrs({ type: "time" })`
   color: ${colors.darkGreen};
   font-size: 3rem;
   font-weight: bold;
@@ -506,7 +513,7 @@ export const TimerInput = styled.input.attrs({ type: 'time' })`
   &::-webkit-calendar-picker-indicator {
     display: none;
   }
-`
+`;
 export const TimerDisplay = styled.div`
   color: ${colors.darkGreen};
   font-size: 3rem;
@@ -514,4 +521,4 @@ export const TimerDisplay = styled.div`
   border: none;
   background: transparent;
   outline: none;
-`
+`;

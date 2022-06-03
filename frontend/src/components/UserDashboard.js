@@ -107,11 +107,21 @@ export default function UserDashboard(props) {
               const day = dayInfo.number;
               const month = dayInfo.monthNumber + 1;
               const year = dayInfo.year;
+
+              const onClickHandler = isToday
+                ? () => {
+                    if (!isToday) {
+                      return;
+                    } else {
+                      history(`/timer?day=${day}&month=${month}&year=${year}`);
+                    }
+                  }
+                : null;
+
               return (
                 <MonthBubble
-                  onClick={() => {
-                    history(`/timer?day=${day}&month=${month}&year=${year}`);
-                  }}
+                  isToday={isToday}
+                  onClick={onClickHandler}
                   backgroundColor={bckgColor}
                   color={textColor}
                 >
