@@ -6,7 +6,7 @@ import user from "./user";
 
 const router = Router();
 router.post("/register", register);
-router.get("/login", login);
+router.post("/login", login);
 router.use("/admin", admin);
 router.use("/user", user);
 
