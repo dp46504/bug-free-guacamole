@@ -5,6 +5,6 @@ import dayInfo from "./dayInfo";
 
 const router = Router();
 router.post("/start-workday", restAuth, startWorkDay);
-router.post("/day-info", restAuth, dayInfo);
+router.get("/day-info", restAuth, dayInfo);
 
 export default router;
