@@ -68,6 +68,11 @@ export default function UserDayView(props) {
       if (timeLeft <= 0) {
         clearInterval(interval)
         timerCircleRef.current.innerText = msToTime(0)
+        timerButtonRef.current.style.filter = 'saturate(0%)'
+        timerButtonRef.current.style.transform = 'none'
+        timerButtonRef.current.style.cursor = 'not-allowed'
+        timerCircleRef.current.style.filter = 'saturate(0%)'
+        timerCircleRef.current.disabled = true
         return
       }
       timerCircleRef.current.innerText = msToTime(timeLeft)
